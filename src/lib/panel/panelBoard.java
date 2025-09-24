@@ -106,16 +106,14 @@ public class panelBoard extends JPanel {
             );
 
             // ✅ ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
-            Card card = CardFactory.createCard(cardName, cardImageIcon);
+            Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
-            // 🔹 Print ข้อมูลการ์ด
-            System.out.println("Create pair: " 
-            + card.getName() 
-            + " | Score: " + card.getScore() 
-            + " | Stats: " + card.getDescription());
+ 
+
         }
 
-        cardSet.addAll(new ArrayList<>(cardSet));
+        // cardSet.addAll(new ArrayList<>(cardSet));
+        cardSet.addAll(cardSet);
     }
 
     public void shuffleCards() {
