@@ -8,10 +8,10 @@ public class MainFrame extends JFrame {
     public void Initail(){
         this.setTitle("Match Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(450, 450);
+        this.setSize(390, 480);
         this.setLocationRelativeTo(null);
     }
-    
+
     public void Finally(){
         this.add(cards);
         this.setVisible(true);
