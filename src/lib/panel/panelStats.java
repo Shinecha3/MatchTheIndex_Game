@@ -8,7 +8,7 @@ public class panelStats extends JPanel {
     private JLabel timeLabel;
 
     private int scoreCount = 0;
-    private int time = 40;
+    private int time = 10;
     private int timeLeft = time;  
     private Timer gameTimer;
 

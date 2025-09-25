@@ -29,12 +29,11 @@ public class panelBoard extends JPanel {
     JButton card2Selected;
     ImageIcon cardBackImageIcon;
 
-    public panelBoard(JButton restartButton,panelStats statsPanel) {
+    public panelBoard(JButton restartButton, panelStats statsPanel) {
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
         setupCards();
         shuffleCards();
-        statsPanel.startTimer();
 
         this.setLayout(new GridLayout(rows, columns));
         for (int i = 0; i < cardSet.size(); i++) {
@@ -78,14 +77,15 @@ public class panelBoard extends JPanel {
             this.add(title);
             
             hideCardTimer = new Timer(1500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                hideCards();
-            }
-            } );
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    hideCards();
+                }
+            });
             hideCardTimer.setRepeats(false);
             hideCardTimer.start();
         }
+    
     }
 
     public int getScoreCount() {
@@ -105,17 +105,18 @@ public class panelBoard extends JPanel {
                 cardImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH)
             );
 
+            Image cardBackImg = new ImageIcon(getClass().getResource("/img/back.jpg")).getImage();
+            cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH));
+
             // ✅ ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
-            Card card = CardFactory.createCard(cardName, cardImageIcon);
+            Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
-            // 🔹 Print ข้อมูลการ์ด
-            System.out.println("Create pair: " 
-            + card.getName() 
-            + " | Score: " + card.getScore() 
-            + " | Stats: " + card.getDescription());
+ 
+
         }
 
-        cardSet.addAll(new ArrayList<>(cardSet));
+        // cardSet.addAll(new ArrayList<>(cardSet));
+        cardSet.addAll(cardSet);
     }
 
     public void shuffleCards() {
@@ -155,7 +156,7 @@ public class panelBoard extends JPanel {
 
         // รีเซ็ตไอคอนทุกใบกลับไปเป็น cardBackImageIcon
         for (int i = 0; i < board.size(); i++) {
-            board.get(i).setIcon(cardBackImageIcon);
+            board.get(i).setIcon(cardSet.get(i).getImage());
         }
         
         statsPanel.startTimer(); // ✅ เริ่มนับเวลาใหม่
