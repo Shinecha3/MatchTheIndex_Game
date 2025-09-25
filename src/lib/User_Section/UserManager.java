@@ -18,8 +18,11 @@ public class UserManager {
                     users.add(new User(username, password, score));
                 }
             }
+        } catch (FileNotFoundException e) {
+            // ไฟล์ยังไม่มี - return list ว่าง
+            System.out.println("User data file not found. Creating new file.");
         } catch (IOException e) {
-            // ถ้าไฟล์ยังไม่มีให้ return list ว่างๆ
+            System.err.println("Error reading user data: " + e.getMessage());
         }
         return users;
     }
@@ -30,13 +33,19 @@ public class UserManager {
             for (User u : users) {
                 fw.write(u.toString() + "\n");
             }
+            System.out.println("User data saved successfully.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error saving user data: " + e.getMessage());
         }
     }
 
     // สมัคร user ใหม่
     public static boolean signUp(String username, String password) {
+        // ตรวจสอบว่ามีเครื่องหมาย comma ไหม ถ้ามีมันจะทำให้ file csv เจ๋ง
+        if (username.contains(",") || password.contains(",")) {
+            return false;
+        }
+        
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUsername().equals(username)) {
@@ -50,9 +59,14 @@ public class UserManager {
 
     // ตรวจสอบ login
     public static User login(String username, String password) {
+        if (username == null || password == null) {
+            return null;
+        }
+
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                System.out.println("User logged in: " + username);
                 return u; // login สำเร็จ
             }
         }
