@@ -19,7 +19,8 @@ public class MainFrame extends JFrame {
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture();
+        MatchPicture gamePanel = new MatchPicture("kuromi");
+        MatchPicture gamePanel2 = new MatchPicture("math");
 
         // หน้า GameOver
         panelOver gameOverPanel = new panelOver();
@@ -31,6 +32,10 @@ public class MainFrame extends JFrame {
         menuPanel.getStartButton().addActionListener(e -> {
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
+        });
+        menuPanel.getStartButton2().addActionListener(e -> {
+            cardLayout.show(cards, "Game2");
+            gamePanel2.startGame();
         });
 
         // ✅ set action ของปุ่ม Back to Menu ที่อยู่ใน panelGameOver
@@ -47,6 +52,7 @@ public class MainFrame extends JFrame {
         // เพิ่มทุกหน้าเข้าไปใน card
         cards.add(menuPanel, "Menu");
         cards.add(gamePanel, "Game");
+        cards.add(gamePanel2, "Game2");
         cards.add(gameOverPanel, "GameOver");
 
         this.add(cards);
