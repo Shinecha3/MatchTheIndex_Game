@@ -26,26 +26,26 @@ public class panelStats extends JPanel {
         add(scoreLabel);
         add(timeLabel);
 
-        // ✅ Timer สำหรับนับถอยหลัง
+        //  Timer สำหรับนับถอยหลัง
         gameTimer = new Timer(1000, e -> {
             timeLeft--;
             timeLabel.setText("Time: " + timeLeft);
 
             if (timeLeft <= 0) {
                 if (onTimeUp != null) {
-                    onTimeUp.run(); // ✅ เรียก action จาก panelBoard/MatchPicture
+                    onTimeUp.run(); //  เรียก action จาก panelBoard/MatchPicture
                 }
             }
         });
     }
 
-    // ✅ อัปเดตค่า Error
+    //  อัปเดตค่า Error
     public void updateScore(int count) {
         this.scoreCount = count;
         scoreLabel.setText("Score: " + scoreCount);
     }
 
-    // ✅ จัดการ Timer
+    //  จัดการ Timer
     public void startTimer() {
         timeLeft = time;
         timeLabel.setText("Time: " + timeLeft);

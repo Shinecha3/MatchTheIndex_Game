@@ -33,4 +33,8 @@ public class panelOver extends JPanel {
     public JButton getRestartButton() {
         return restartButton;
     }
+
+    /// public void setFinalScore(int score) {
+    //     scoreLabel.setText("Final Score: " + score);
+    // }
 }
