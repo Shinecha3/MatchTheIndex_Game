@@ -108,7 +108,7 @@ public class panelBoard extends JPanel {
             Image cardBackImg = new ImageIcon(getClass().getResource("/img/back.jpg")).getImage();
             cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH));
 
-            // ✅ ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
+            //  ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
             Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
  
@@ -159,7 +159,7 @@ public class panelBoard extends JPanel {
             board.get(i).setIcon(cardSet.get(i).getImage());
         }
         
-        statsPanel.startTimer(); // ✅ เริ่มนับเวลาใหม่
+        statsPanel.startTimer(); //  เริ่มนับเวลาใหม่
         hideCardTimer.start();
     }
 }

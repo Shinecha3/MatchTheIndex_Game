@@ -105,14 +105,15 @@ public class panelMath extends JPanel {
                 cardImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH)
             );
 
-            // ✅ ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
-            Card card = CardFactory.createCard(cardName, cardImageIcon);
+            //  ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
+            Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
-            // 🔹 Print ข้อมูลการ์ด
-            System.out.println("Create pair: " 
-            + card.getName() 
-            + " | Score: " + card.getScore() 
-            + " | Stats: " + card.getDescription());
+            // Print ข้อมูลการ์ด
+            // System.out.println("Create pair: " 
+            // + card.getName() 
+            // + " | Score: " + card.getScore()
+            // // + " | Stats: " + card.getDescription()
+            // );
         }
         cardSet.addAll(cardSet);
 
@@ -158,7 +159,7 @@ public class panelMath extends JPanel {
         for (int i = 0; i < board.size(); i++) {
             board.get(i).setIcon(cardSet.get(i).getImage());
         }
-        statsPanel.startTimer(); // ✅ เริ่มนับเวลาใหม่
+        statsPanel.startTimer(); //  เริ่มนับเวลาใหม่
         hideCardTimer.start();
     }
 }
