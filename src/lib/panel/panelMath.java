@@ -34,7 +34,6 @@ public class panelMath extends JPanel {
         this.statsPanel = statsPanel;
         setupCards();
         shuffleCards();
-        statsPanel.startTimer();
 
         this.setLayout(new GridLayout(rows, columns));
         for (int i = 0; i < cardSet.size(); i++) {

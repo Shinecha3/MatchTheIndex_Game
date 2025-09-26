@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
+        UserManager userManager = new UserManager();
 
         // หน้าเริ่ม
         panelStart menuPanel = new panelStart();
@@ -26,10 +27,12 @@ public class MainFrame extends JFrame {
         panelOver gameOverPanel = new panelOver();
 
         //  set callback จากหน้าเกม
-        gamePanel.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
+        // gamePanel.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
+        gamePanel2.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
+            userManager.();
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
         });
