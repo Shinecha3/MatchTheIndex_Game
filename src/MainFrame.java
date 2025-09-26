@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
-            userManager.();
+            // userManager.();
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
         });
