@@ -57,6 +57,7 @@ public class MatchPicture extends JPanel {
 
         restartGamePanel.add(restartButton);
         this.add(restartGamePanel, BorderLayout.SOUTH);
+        
         } else if (gameType.equals("math")) {
         panelMath2Math = new panelMath(restartButton, statsPanel);
         this.add(panelMath2Math, BorderLayout.CENTER);
