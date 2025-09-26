@@ -41,21 +41,11 @@ public class MatchPicture extends JPanel {
         statsPanel.setOnTimeUp(() -> {
             boardPanel.restartGame();
             if (onGameOver != null) {
-                onGameOver.run(); // ✅ ไปหน้าถัดไป
+                onGameOver.run(); //  ไปหน้าถัดไป
             }
         });
 
-        restartButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        restartButton.setText("Restart Game");
-        restartButton.setPreferredSize(new Dimension(boardWidth, 30));
-        restartButton.setFocusable(false);
-        restartButton.addActionListener(e -> {
-            boardPanel.restartGame();
-            statsPanel.updateScore(0);
-            statsPanel.startTimer(); // ✅ เริ่มใหม่เมื่อกด Restart
-        });
 
-        restartGamePanel.add(restartButton);
         this.add(restartGamePanel, BorderLayout.SOUTH);
         
         } else if (gameType.equals("math")) {
@@ -65,20 +55,12 @@ public class MatchPicture extends JPanel {
         statsPanel.setOnTimeUp(() -> {
             panelMath2Math.restartGame();
             if (onGameOver != null) {
-                onGameOver.run(); // ✅ ไปหน้าถัดไป
+                onGameOver.run(); //  ไปหน้าถัดไป
             }
         });
-        restartButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        restartButton.setText("Restart Game");
-        restartButton.setPreferredSize(new Dimension(boardWidth, 30));
-        restartButton.setFocusable(false);
-        restartButton.addActionListener(e -> {
-            panelMath2Math.restartGame();
-            statsPanel.updateScore(0);
-            statsPanel.startTimer(); // ✅ เริ่มใหม่เมื่อกด Restart
-        });
 
-        restartGamePanel.add(restartButton);
+
+ 
         this.add(restartGamePanel, BorderLayout.SOUTH);
         }
 
@@ -89,14 +71,14 @@ public class MatchPicture extends JPanel {
         // restartButton.addActionListener(e -> {
         //     boardPanel.restartGame();
         //     statsPanel.updateScore(0);
-        //     statsPanel.startTimer(); // ✅ เริ่มใหม่เมื่อกด Restart
+        //     statsPanel.startTimer(); //  เริ่มใหม่เมื่อกด Restart
         // });
 
         // restartGamePanel.add(restartButton);
         // this.add(restartGamePanel, BorderLayout.SOUTH);
     }
 
-    // 👇 สั่งให้เวลาเริ่มนับหลังเข้าหน้าเกม
+    //  สั่งให้เวลาเริ่มนับหลังเข้าหน้าเกม
     public void startGame() {
         statsPanel.startTimer();
     }

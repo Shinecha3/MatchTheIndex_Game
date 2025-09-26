@@ -25,7 +25,7 @@ public class panelStart extends JPanel {
         this.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // ✅ ให้ MainFrame มารับปุ่มนี้ไปใส่ ActionListener ได้
+    //  ให้ MainFrame มารับปุ่มนี้ไปใส่ ActionListener ได้
     public JButton getStartButton() {
         return startButton;
     }

@@ -25,10 +25,10 @@ public class MainFrame extends JFrame {
         // หน้า GameOver
         panelOver gameOverPanel = new panelOver();
 
-        // ✅ set callback จากหน้าเกม
+        //  set callback จากหน้าเกม
         gamePanel.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
 
-        // ✅ set action ของปุ่ม Start ที่อยู่ใน panelStart
+        //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
@@ -38,12 +38,12 @@ public class MainFrame extends JFrame {
             gamePanel2.startGame();
         });
 
-        // ✅ set action ของปุ่ม Back to Menu ที่อยู่ใน panelGameOver
+        //  set action ของปุ่ม Back to Menu ที่อยู่ใน panelGameOver
         gameOverPanel.getBackToMenuButton().addActionListener(e -> {
             cardLayout.show(cards, "Menu");
         });
 
-        // ✅ set action ของปุ่ม Restart Game ที่อยู่ใน panelGameOver
+        //  set action ของปุ่ม Restart Game ที่อยู่ใน panelGameOver
         gameOverPanel.getRestartButton().addActionListener(e -> {
             cardLayout.show(cards, "Game");
             gamePanel.startGame(); // เริ่มเกมใหม่ทันที
@@ -59,7 +59,5 @@ public class MainFrame extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(MainFrame::new);
-    }
+
 }

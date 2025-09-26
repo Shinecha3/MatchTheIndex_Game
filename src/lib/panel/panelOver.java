@@ -25,7 +25,7 @@ public class panelOver extends JPanel {
         this.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // ✅ getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
+    //  getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
     public JButton getBackToMenuButton() {
         return backToMenuButton;
     }
