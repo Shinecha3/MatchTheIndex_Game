@@ -75,22 +75,25 @@ public class LoginGUI extends JFrame {
                 }
                 
                 // ตรวจสอบ login ผ่าน UserManager
-                User user = UserManager.login(username, password);
-                if (user != null) {
-                    JOptionPane.showMessageDialog(LoginGUI.this, 
-                        "Login successful!\nWelcome " + user.getUsername() + 
-                        "\nYour score: " + user.getScore(), 
-                        "Success", 
-                        JOptionPane.INFORMATION_MESSAGE);
-                    
-                    // ปิดหน้า Login และเปิดหน้าเกมหรือหน้าหลัก
-                    LoginGUI.this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(LoginGUI.this, 
-                        "Invalid username or password!", 
-                        "Login Failed", 
-                        JOptionPane.ERROR_MESSAGE);
-                }
+            User user = UserManager.login(username, password);
+            if (user != null) {
+                JOptionPane.showMessageDialog(LoginGUI.this, 
+                    "Login successful!\nWelcome " + user.getUsername() + 
+                    "\nYour score: " + user.getScore(), 
+                    "Success", 
+                    JOptionPane.INFORMATION_MESSAGE);
+
+                // ปิดหน้า Login
+                LoginGUI.this.dispose();
+                // เปิด MainFrame (หน้าเกมหลัก)
+                new MainFrame().setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(LoginGUI.this, 
+                    "Invalid username or password!", 
+                    "Login Failed", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
             }
         });
         loginbutton.setBounds(150, 340, 200, 40);
