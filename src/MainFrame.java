@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
         menuPanel.getStartButton().addActionListener(e -> {
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
+            
         });
         menuPanel.getStartButton2().addActionListener(e -> {
             cardLayout.show(cards, "Game2");

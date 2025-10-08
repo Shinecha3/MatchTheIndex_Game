@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.*;
 import lib.panel.*;
 
@@ -23,6 +26,7 @@ public class MatchPicture extends JPanel {
     private Runnable onGameOver;
 
     public void setOnGameOver(Runnable onGameOver) {
+        
         this.onGameOver = onGameOver;
     }
 
@@ -81,5 +85,14 @@ public class MatchPicture extends JPanel {
     //  สั่งให้เวลาเริ่มนับหลังเข้าหน้าเกม
     public void startGame() {
         statsPanel.startTimer();
+    }
+
+    public void saveScoreToCSV(String username, int score) {
+        try (FileWriter writer = new FileWriter("user-information.csv", true)) {
+            writer.append(username).append(",")
+                .append(String.valueOf(score)).append("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
