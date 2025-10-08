@@ -7,11 +7,12 @@ public class panelOver extends JPanel {
 
     private JButton backToMenuButton;
     private JButton restartButton;
-
+    private int currentScore;
+    JLabel gameOverLabel;
     public panelOver() {
         this.setLayout(new BorderLayout());
 
-        JLabel gameOverLabel = new JLabel("Game Over!", SwingConstants.CENTER);
+        gameOverLabel = new JLabel("Game Over! You Get "+ currentScore , SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 22));
         this.add(gameOverLabel, BorderLayout.CENTER);
 
@@ -28,6 +29,11 @@ public class panelOver extends JPanel {
     //  getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
     public JButton getBackToMenuButton() {
         return backToMenuButton;
+    }
+    
+    public void setCurrentScore(int currentScore){
+        this.currentScore = currentScore;
+        gameOverLabel.setText("Game Over! You Get "+ currentScore);
     }
 
     public JButton getRestartButton() {

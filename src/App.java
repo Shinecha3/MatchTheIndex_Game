@@ -1,6 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception{
-        MainFrame MainFrame = new MainFrame();
+        new LoginGUI();
+        // MainFrame MainFrame = new MainFrame();
         
     }
 }

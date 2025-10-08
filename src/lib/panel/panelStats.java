@@ -1,28 +1,33 @@
 package lib.panel;
-
 import javax.swing.*;
 import java.awt.*;
+import lib.*;
 
 public class panelStats extends JPanel {
     private JLabel scoreLabel;
     private JLabel timeLabel;
+    private JLabel PlayernameLabel;
 
     private int scoreCount = 0;
-    private int time = 30;
+    private int time = 10;
     private int timeLeft = time;  
     private Timer gameTimer;
 
     private Runnable onTimeUp;
-    public panelStats(int boardWidth) {
+    public panelStats(int boardWidth,String playerName) {
         setPreferredSize(new Dimension(boardWidth, 30));
-        setLayout(new GridLayout(1, 2)); // แสดง 2 ช่อง: Error | Time
+        setLayout(new GridLayout(1, 3)); 
+
+        PlayernameLabel = new JLabel(playerName,SwingConstants.CENTER);
+        PlayernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 
         scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
 
         timeLabel = new JLabel("Time: " + timeLeft, SwingConstants.CENTER);
         timeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-
+        
+        add(PlayernameLabel);
         add(scoreLabel);
         add(timeLabel);
 
@@ -63,6 +68,8 @@ public class panelStats extends JPanel {
     }
 
     public void setOnTimeUp(Runnable r) {
-    this.onTimeUp = r;
-}
+        this.onTimeUp = r;
+    }
+
+    public int getScoreCount(){return this.scoreCount;}
 }

@@ -74,7 +74,7 @@ public class UserManager {
     }
 
     // update score (เช่นหลังจบเกม)
-    public static boolean updateScore(String username, int newScore) {
+    public  boolean updateScore(String username, int newScore) {
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUsername().equals(username)) {
