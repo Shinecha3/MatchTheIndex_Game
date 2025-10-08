@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class UserManager {
-    private static final String FILE_NAME = "./lib/User_Section/File/user-information.csv";
+    private static final String FILE_NAME = "./src/lib/User_Section/File/user-information.csv";
 
     // อ่าน user ที่ login ไว้ทั้งหมดจากไฟล์ที่เก็บ 
     public static List<User> loadUsers() {
