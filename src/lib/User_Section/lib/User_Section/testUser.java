@@ -1,3 +1,5 @@
+package lib.User_Section;
+
 import java.util.List;
 
 public class testUser {
@@ -22,9 +24,9 @@ public class testUser {
         
         // แสดงการจัด Ranking
         System.out.println("\n=== Ranking ===");
-        List<User> ranking = UserManager.getRanking();
-        for (int i = 0; i < ranking.size(); i++) {
-            System.out.println((i+1) + ". " + ranking.get(i).getUsername() + " - " + ranking.get(i).getScore());
-        }
+        // List<User> ranking = UserManager.getRanking();
+        // for (int i = 0; i < ranking.size(); i++) {
+        //     System.out.println((i+1) + ". " + ranking.get(i).getUsername() + " - " + ranking.get(i).getScore());
+        // }
     }
 }

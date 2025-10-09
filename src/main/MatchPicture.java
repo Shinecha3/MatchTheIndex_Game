@@ -1,8 +1,8 @@
+package main;
 import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import javax.swing.*;
+
+import lib.User_Section.User;
 import lib.panel.*;
 
 public class MatchPicture extends JPanel {

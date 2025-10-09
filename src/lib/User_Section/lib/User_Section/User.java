@@ -1,3 +1,4 @@
+package lib.User_Section;
 
 public class User {
     private String username;

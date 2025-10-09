@@ -1,3 +1,6 @@
+package lib.User_Section;
+
+import main.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

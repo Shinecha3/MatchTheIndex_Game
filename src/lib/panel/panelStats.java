@@ -1,7 +1,6 @@
 package lib.panel;
 import javax.swing.*;
 import java.awt.*;
-import lib.*;
 
 public class panelStats extends JPanel {
     private JLabel scoreLabel;
@@ -9,7 +8,7 @@ public class panelStats extends JPanel {
     private JLabel PlayernameLabel;
 
     private int scoreCount = 0;
-    private int time = 15;
+    private int time = 30;
     private int timeLeft = time;  
     private Timer gameTimer;
 
@@ -71,6 +70,10 @@ public class panelStats extends JPanel {
 
     public void setOnTimeUp(Runnable r) {
         this.onTimeUp = r;
+    }
+
+    public void addTime(int sec) {
+        this.timeLeft += sec;
     }
 
     public int getScoreCount(){return this.scoreCount;}
