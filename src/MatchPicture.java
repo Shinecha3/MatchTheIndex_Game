@@ -45,6 +45,8 @@ public class MatchPicture extends JPanel {
         statsPanel.setOnTimeUp(() -> {
             boardPanel.restartGame();
             if (onGameOver != null) {
+                statsPanel.stopTimer();
+                boardPanel.stopTimer();
                 this.currentScore = statsPanel.getScoreCount();
                 onGameOver.run(); //  ไปหน้าถัดไป
                 
@@ -61,6 +63,8 @@ public class MatchPicture extends JPanel {
         statsPanel.setOnTimeUp(() -> {
             panelMath2Math.restartGame();
             if (onGameOver != null) {
+                statsPanel.stopTimer();
+                boardPanel.stopTimer();
                 this.currentScore = statsPanel.getScoreCount();
                 onGameOver.run(); //  ไปหน้าถัดไป
                 
@@ -77,15 +81,7 @@ public class MatchPicture extends JPanel {
     //  สั่งให้เวลาเริ่มนับหลังเข้าหน้าเกม
     public void startGame() {
         statsPanel.startTimer();
-    }
-
-    public void saveScoreToCSV(String username, int score) {
-        try (FileWriter writer = new FileWriter("user-information.csv", true)) {
-            writer.append(username).append(",")
-                .append(String.valueOf(score)).append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        boardPanel.startHide();
     }
 
     public int getCurrentScore(){ return this.currentScore;}
