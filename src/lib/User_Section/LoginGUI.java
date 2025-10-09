@@ -86,7 +86,7 @@ public class LoginGUI extends JFrame {
                 // ปิดหน้า Login
                 LoginGUI.this.dispose();
                 // เปิด MainFrame (หน้าเกมหลัก)
-                new MainFrame().setVisible(true);
+                new MainFrame(user).setVisible(true);
 
             } else {
                 JOptionPane.showMessageDialog(LoginGUI.this, 

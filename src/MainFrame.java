@@ -6,7 +6,7 @@ public class MainFrame extends JFrame {
     CardLayout cardLayout;
     JPanel cards;
 
-    public MainFrame() {
+    public MainFrame(User inputUser) {
         this.setTitle("Match Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 500);
@@ -14,21 +14,34 @@ public class MainFrame extends JFrame {
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
-        UserManager userManager = new UserManager();
 
+        User currentUser = inputUser;
+        UserManager userManager = new UserManager();
+    
         // หน้าเริ่ม
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture("kuromi");
-        MatchPicture gamePanel2 = new MatchPicture("math");
+        MatchPicture gamePanel = new MatchPicture("kuromi", currentUser);
+        MatchPicture gamePanel2 = new MatchPicture("math", currentUser);
 
         // หน้า GameOver
         panelOver gameOverPanel = new panelOver();
 
+
         //  set callback จากหน้าเกม
-        // gamePanel.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
-        gamePanel2.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
+        gamePanel.setOnGameOver(() -> {
+            
+            System.out.println(gamePanel.getCurrentScore());
+            userManager.updateScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+            gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
+            cardLayout.show(cards, "GameOver");
+            
+        });
+
+        
+
+        // gamePanel2.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
