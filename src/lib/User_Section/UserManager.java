@@ -74,7 +74,7 @@ public class UserManager {
     }
 
     // update score (เช่นหลังจบเกม)
-    public  boolean updateScore(String username, int newScore) {
+    public static boolean updateScore(String username, int newScore) {
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUsername().equals(username)) {
@@ -85,4 +85,15 @@ public class UserManager {
         }
         return false;
     }
+
+    // จัดอับดับ ranking score 
+    public static List<User> getRanking(){
+        // โหลด user ทั้งหมดจากไฟล์ csv 
+        List<User> users = loadUsers();
+        // ทำการเรียงลำดับโดยเรียงจาก score
+        users.sort((user1, user2) -> Integer.compare(user2.getScore(), user1.getScore()));
+        // return เป็น list หลังจากเรียงเสร็จแล้ว
+        return users;
+    }
+
 }
