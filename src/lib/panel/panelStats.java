@@ -39,6 +39,8 @@ public class panelStats extends JPanel {
             if (timeLeft <= 0) {
                 if (onTimeUp != null) {
                     onTimeUp.run(); // ✅ เรียก action จาก panelBoard/MatchPicture
+                    scoreCount = 0;
+                    scoreLabel.setText("Score: 0");
                 }
             }
         });
