@@ -20,14 +20,22 @@ public class panelBoard extends JPanel {
     private JButton restartButton;
     private panelStats statsPanel;
     public ArrayList<Card> cardSet;
+    Timer Delay;
 
     int scoreCount = 0;
-    ArrayList<JButton> board = new ArrayList<>(); // ✅ new ArrayList
+    ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
     Timer hideCardTimer;
+    int hideCardDely = (1000) * 3;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
     boolean gameReady = false;
     JButton card1Selected;
     JButton card2Selected;
     ImageIcon cardBackImageIcon;
+
+    Runnable boardRun;
+
+    public void boardRun(Runnable boardRun) {
+        this.boardRun = boardRun;
+    }
 
     public panelBoard(JButton restartButton, panelStats statsPanel) {
         this.restartButton = restartButton;
@@ -76,14 +84,15 @@ public class panelBoard extends JPanel {
             board.add(title);
             this.add(title);
             
-            hideCardTimer = new Timer(1500, new ActionListener() {
+            hideCardTimer = new Timer((1000/2) * 1, new ActionListener() { /// 1/2 = 0.5วิ 
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     hideCards();
                 }
             });
             hideCardTimer.setRepeats(false);
-            hideCardTimer.start();
+            hideCardTimer.stop();
+            
         }
     
     }
@@ -161,5 +170,32 @@ public class panelBoard extends JPanel {
         
         statsPanel.startTimer(); //  เริ่มนับเวลาใหม่
         hideCardTimer.start();
+    }
+
+    public void startHide(){
+        Delay = new Timer(hideCardDely, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hideCardTimer.start();
+            }
+            
+        });
+        Delay.setRepeats(false);
+        Delay.start();
+        
+    }
+
+    public void stopTimer() {
+        hideCardTimer.restart();
+        hideCardTimer.stop();
+        Delay.restart();
+        Delay.stop();
+    }
+
+    public void resetTimer() {
+        stopTimer();
+        startHide();
+        
     }
 }
