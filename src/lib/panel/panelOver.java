@@ -1,7 +1,8 @@
 package lib.panel;
-
+import lib.User_Section.*;
 import java.awt.*;
 import javax.swing.*;
+import java.util.List;
 
 public class panelOver extends JPanel {
 
@@ -13,7 +14,7 @@ public class panelOver extends JPanel {
     JLabel gameOverLabel;
     JLabel highestScoreLabel;
     
-    public panelOver() {
+    public panelOver(List<User> ranking) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JPanel scoreboardPanel = new JPanel();
