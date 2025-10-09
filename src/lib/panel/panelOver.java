@@ -1,7 +1,8 @@
 package lib.panel;
-
+import lib.User_Section.*;
 import java.awt.*;
 import javax.swing.*;
+import java.util.List;
 
 public class panelOver extends JPanel {
 
@@ -9,18 +10,23 @@ public class panelOver extends JPanel {
     private JButton restartButton;
     private int currentScore;
     private int highestScore;
-
+    
+    JPanel scoreboardPanel; // สร้าง scoreboardPanel ใน class
     JLabel gameOverLabel;
     JLabel highestScoreLabel;
+    int top5 = 5;
+    int rank = 1;
+    List<User> currentRank;
     
-    public panelOver() {
+    public panelOver(List<User> ranking) {
+        currentRank = ranking;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        JPanel scoreboardPanel = new JPanel();
+        
+        // สร้าง scoreboardPanel ครั้งเดียว
+        scoreboardPanel = new JPanel();
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
-        scoreboardPanel.add(new JLabel("Alice - 1200"));
-        scoreboardPanel.add(new JLabel("Bob - 950"));
 
+        setRank();
 
         gameOverLabel = new JLabel("Game Over! You Get "+ currentScore , SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 22));
@@ -35,11 +41,9 @@ public class panelOver extends JPanel {
         this.add(scoreboardPanel);
         this.add(Box.createVerticalStrut(50));
         this.add(highestScoreLabel);
-        this.add(Box.createVerticalStrut(50));
+        this.add(Box.createVerticalStrut(30));
         this.add(gameOverLabel);
-        this.add(Box.createVerticalStrut(50));
-
-
+        this.add(Box.createVerticalStrut(30));
 
         JPanel buttonPanel = new JPanel();
         backToMenuButton = new JButton("giveUp?");
@@ -51,8 +55,12 @@ public class panelOver extends JPanel {
         buttonPanel.add(backToMenuButton);
         buttonPanel.add(restartButton);
 
-
         this.add(buttonPanel);
+    }
+
+    private Font Font(String string, int bold, int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Font'");
     }
 
     //  getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
@@ -65,7 +73,7 @@ public class panelOver extends JPanel {
         if (currentScore < highestScore) {
             gameOverLabel.setText("Really ? Score: "+ currentScore);
         }else{
-            gameOverLabel.setText("You made NewHigh! Score: "+ currentScore);
+            gameOverLabel.setText("You made NewHigh!");
         }
         
     }
@@ -83,6 +91,37 @@ public class panelOver extends JPanel {
     public JButton getRestartButton() {
         return restartButton;
     }
+    
+    public void updateRank(List<User> newRank){
+        this.currentRank = newRank;
+        setRank();
+    }
 
+    public void setRank(){
+        // ลบ JLabel เก่าทั้งหมด
+        scoreboardPanel.removeAll();
 
+        // Reset rank and top5
+        rank = 1;
+        top5 = 5;
+
+        // เพิ่ม JLabel ใหม่
+        for(User u:currentRank){
+            JLabel tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getScore());
+            tmp.setFont(new Font("Arial", Font.BOLD, 15));
+            tmp.setHorizontalAlignment(SwingConstants.LEFT);
+            tmp.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            scoreboardPanel.add(tmp);
+            rank++;
+            top5--;
+            if(top5==0){
+                break;
+            }
+        }
+
+        // อัปเดต UI
+        scoreboardPanel.revalidate();
+        scoreboardPanel.repaint();
+    }
 }

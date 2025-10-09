@@ -25,7 +25,7 @@ public class panelBoard extends JPanel {
     int scoreCount = 0;
     ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
     Timer hideCardTimer;
-    int hideCardDely = (1000) * 3;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
+    int hideCardDely = (1000) * 2;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
     boolean gameReady = false;
     JButton card1Selected;
     JButton card2Selected;
@@ -75,6 +75,10 @@ public class panelBoard extends JPanel {
                                 statsPanel.updateScore(scoreCount); 
                                 card1Selected = null;
                                 card2Selected = null;
+                                if(isBoardCleared()){
+                                    reCard();
+                                    statsPanel.addTime(10); 
+                                }
                             }
                         }
                     }
@@ -169,8 +173,24 @@ public class panelBoard extends JPanel {
         }
         
         statsPanel.startTimer(); //  เริ่มนับเวลาใหม่
-        hideCardTimer.start();
+        Delay.restart();
+        startHide();
     }
+
+    public void reCard() {
+        hideCards();
+        card1Selected = null;
+        card2Selected = null;
+
+        shuffleCards();
+
+        for (int i = 0; i < board.size(); i++) {
+            board.get(i).setIcon(cardSet.get(i).getImage());
+        }
+
+        stopTimer();
+        resetTimer();
+    }    
 
     public void startHide(){
         Delay = new Timer(hideCardDely, new ActionListener() {
@@ -198,4 +218,13 @@ public class panelBoard extends JPanel {
         startHide();
         
     }
+
+    public boolean isBoardCleared() {
+    for (JButton tile : board) {
+        if (tile.getIcon() == cardBackImageIcon) {
+            return false; // ยังมีการ์ดที่ยังไม่เปิด
+        }
+    }
+    return true; // การ์ดเปิดหมดแล้ว
+}
 }

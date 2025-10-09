@@ -1,6 +1,9 @@
+package main;
 import java.awt.*;
 import javax.swing.*;
+
 import lib.panel.*;
+import lib.User_Section.*;;
 
 public class MainFrame extends JFrame {
     CardLayout cardLayout;
@@ -11,6 +14,7 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
@@ -26,7 +30,7 @@ public class MainFrame extends JFrame {
         MatchPicture gamePanel2 = new MatchPicture("math", currentUser);
 
         // หน้า GameOver
-        panelOver gameOverPanel = new panelOver();
+        panelOver gameOverPanel = new panelOver(userManager.getRanking());
 
 
         //  set callback จากหน้าเกม
@@ -35,13 +39,10 @@ public class MainFrame extends JFrame {
             System.out.println(gamePanel.getCurrentScore());
             gameOverPanel.setHightestScore(currentUser.getScore(),gamePanel.getCurrentScore());
             System.out.println(currentUser.getScore());
-            
-
-
             if (currentUser.getScore() < gamePanel.getCurrentScore()) {
                 userManager.updateScore(currentUser.getUsername(), gamePanel.getCurrentScore());
             }
-            
+            gameOverPanel.updateRank(userManager.getRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
             
