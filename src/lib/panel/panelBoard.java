@@ -77,7 +77,7 @@ public class panelBoard extends JPanel {
                                 card2Selected = null;
                                 if(isBoardCleared()){
                                     reCard();
-                                    statsPanel.addTime(10); 
+                                    statsPanel.addTime(15); /// เพิ่มเวลาหลังจากรีการ์ดใหม่ 
                                 }
                             }
                         }
@@ -173,7 +173,6 @@ public class panelBoard extends JPanel {
         }
         
         statsPanel.startTimer(); //  เริ่มนับเวลาใหม่
-        Delay.restart();
         startHide();
     }
 

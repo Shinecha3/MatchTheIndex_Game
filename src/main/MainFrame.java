@@ -39,9 +39,12 @@ public class MainFrame extends JFrame {
             System.out.println(gamePanel.getCurrentScore());
             gameOverPanel.setHightestScore(currentUser.getScore(),gamePanel.getCurrentScore());
             System.out.println(currentUser.getScore());
+            System.out.println(gamePanel.getCurrentScore());
             if (currentUser.getScore() < gamePanel.getCurrentScore()) {
                 userManager.updateScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+                currentUser.setScore(gamePanel.getCurrentScore());
             }
+            
             gameOverPanel.updateRank(userManager.getRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
