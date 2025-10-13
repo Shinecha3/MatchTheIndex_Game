@@ -30,22 +30,22 @@ public class MainFrame extends JFrame {
         MatchPicture gamePanel2 = new MatchPicture("math", currentUser);
 
         // หน้า GameOver
-        panelOver gameOverPanel = new panelOver(userManager.getRanking());
+        panelOver gameOverPanel = new panelOver(userManager.getNormalRanking());
 
 
         //  set callback จากหน้าเกม
         gamePanel.setOnGameOver(() -> {
-            
+            // to folk แก้พวกคะแนน
             System.out.println(gamePanel.getCurrentScore());
-            gameOverPanel.setHightestScore(currentUser.getScore(),gamePanel.getCurrentScore());
-            System.out.println(currentUser.getScore());
+            gameOverPanel.setHightestScore(currentUser.getNormalScore(),gamePanel.getCurrentScore());
+            System.out.println(currentUser.getNormalScore());
             System.out.println(gamePanel.getCurrentScore());
-            if (currentUser.getScore() < gamePanel.getCurrentScore()) {
-                userManager.updateScore(currentUser.getUsername(), gamePanel.getCurrentScore());
-                currentUser.setScore(gamePanel.getCurrentScore());
+            if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
+                userManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+                currentUser.setHardScore(gamePanel.getCurrentScore());
             }
             
-            gameOverPanel.updateRank(userManager.getRanking());
+            gameOverPanel.updateRank(userManager.getNormalRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
             

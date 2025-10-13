@@ -80,11 +80,11 @@ public class LoginGUI extends JFrame {
                 // ตรวจสอบ login ผ่าน UserManager
             User user = UserManager.login(username, password);
             if (user != null) {
-                JOptionPane.showMessageDialog(LoginGUI.this, 
-                    "Login successful!\nWelcome " + user.getUsername() + 
-                    "\nYour score: " + user.getScore(), 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
+                // JOptionPane.showMessageDialog(LoginGUI.this, 
+                //     "Login successful!\nWelcome " + user.getUsername() + 
+                //     "\nYour score: " + user.getScore(), 
+                //     "Success", 
+                //     JOptionPane.INFORMATION_MESSAGE);
 
                 // ปิดหน้า Login
                 LoginGUI.this.dispose();

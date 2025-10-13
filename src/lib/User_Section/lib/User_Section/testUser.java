@@ -13,20 +13,30 @@ public class testUser {
         // ทดสอบการ Login
         System.out.println("\n=== Login ===");
         User user1 = UserManager.login("alice", "pass123");
-        System.out.println(user1.getUsername() + " - " + user1.getScore());
+        System.out.println(user1.getUsername() + " - " + "Normal = " + user1.getNormalScore() + ", Hard = " + user1.getHardScore());
         
-        // อัพเดท Score
-        System.out.println("\n=== Update Score ===");
-        UserManager um = new UserManager();
-        um.updateScore("alice", 8500);
-        um.updateScore("bob", 7200);
-        um.updateScore("charlie", 50);
-        
+        // อัพเดท Normal Score
+        System.out.println("\n=== Update Normal Score ===");
+        UserManager.updateNormalScore("alice", 100);
+        UserManager.updateNormalScore("bob", 250);
+        UserManager.updateNormalScore("charlie", 75);
+
+        // อัพเดท Hard Score
+        System.out.println("\n=== Update Normal Score ===");
+        UserManager.updateHardScore("alice", 62);
+        UserManager.updateHardScore("bob", 12);
+        UserManager.updateHardScore("charlie", 95);
+
         // แสดงการจัด Ranking
-        System.out.println("\n=== Ranking ===");
-        // List<User> ranking = UserManager.getRanking();
-        // for (int i = 0; i < ranking.size(); i++) {
-        //     System.out.println((i+1) + ". " + ranking.get(i).getUsername() + " - " + ranking.get(i).getScore());
-        // }
+        System.out.println("\n=== Ranking Normal mode ===");
+        List<User> rankingNormal = UserManager.getNormalRanking();
+        for (int i = 0; i < rankingNormal.size(); i++) {
+            System.out.println((i+1) + ". " + rankingNormal.get(i).getUsername() + " - " + rankingNormal.get(i).getNormalScore());
+        }
+        System.out.println("\n=== Ranking Hard mode ===");
+        List<User> rankingHard = UserManager.getHardRanking();
+        for (int i = 0; i < rankingHard.size(); i++) {
+            System.out.println((i+1) + ". " + rankingHard.get(i).getUsername() + " - " + rankingHard.get(i).getHardScore());
+        }
     }
 }
