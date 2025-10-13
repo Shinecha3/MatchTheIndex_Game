@@ -6,7 +6,8 @@ import javax.swing.*;
 public class panelStart extends JPanel {
 
     private JButton startButton;
-    private JButton startButton2;
+    private JButton startHorseButton;
+    private JButton startSlmButton;
 
     public panelStart() {
         this.setLayout(new BorderLayout());
@@ -15,21 +16,19 @@ public class panelStart extends JPanel {
         title.setFont(new Font("Arial", Font.BOLD, 20));
         this.add(title, BorderLayout.CENTER);
 
-        startButton = new JButton("Start Game");
-        startButton2 = new JButton("Start Game Math");
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        startButton = new JButton("Start Game ");
+        startHorseButton = new JButton(" Pony");
+        startSlmButton = new JButton("Selamoon");
 
+        JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(startButton);
-        buttonPanel.add(startButton2);
+        buttonPanel.add(startHorseButton);
+        buttonPanel.add(startSlmButton);
+
         this.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    //  ให้ MainFrame มารับปุ่มนี้ไปใส่ ActionListener ได้
-    public JButton getStartButton() {
-        return startButton;
-    }
-    public JButton getStartButton2() {
-        return startButton2;
-    }
+    public JButton getStartButton() { return startButton; }
+    public JButton getStartHorseButton() { return startHorseButton; }
+    public JButton getStartSlmButton() { return startSlmButton; }
 }
