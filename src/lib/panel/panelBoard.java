@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import lib.cardClass.CardSet;
 import lib.cardClass.Factory.*;
+import lib.cardClass.Factory.NormalCard;
 
 public class panelBoard extends JPanel {
 
-    String[] cardList = {
-        "duo", "hand", "heart", "lego",
-        "princess", "shine", "smile", "tail"
-    };
+    private String setName;
+    String[] cardList;
 
     int rows = 4;
     int columns = 4;
@@ -37,9 +37,13 @@ public class panelBoard extends JPanel {
         this.boardRun = boardRun;
     }
 
-    public panelBoard(JButton restartButton, panelStats statsPanel) {
+    public panelBoard(JButton restartButton, panelStats statsPanel, String setName) {
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
+        this.setName = setName;
+
+        // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต
+        this.cardList = CardSet.getSet(setName);
         setupCards();
         shuffleCards();
 
@@ -54,9 +58,8 @@ public class panelBoard extends JPanel {
             title.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!gameReady) {
-                        return;
-                    }
+                    if (!gameReady) return;
+
                     JButton tile = (JButton) e.getSource();
                     if (tile.getIcon() == cardBackImageIcon) {
                         if (card1Selected == null) {
@@ -72,12 +75,12 @@ public class panelBoard extends JPanel {
                                 hideCardTimer.start();
                             } else {
                                 scoreCount += cardSet.get(index).getScore();
-                                statsPanel.updateScore(scoreCount); 
+                                statsPanel.updateScore(scoreCount);
                                 card1Selected = null;
                                 card2Selected = null;
-                                if(isBoardCleared()){
+                                if (isBoardCleared()) {
                                     reCard();
-                                    statsPanel.addTime(15); /// เพิ่มเวลาหลังจากรีการ์ดใหม่ 
+                                    statsPanel.addTime(15);
                                 }
                             }
                         }
@@ -85,10 +88,10 @@ public class panelBoard extends JPanel {
                 }
             });
 
-            board.add(title);
+           board.add(title);
             this.add(title);
-            
-            hideCardTimer = new Timer((1000/2) * 1, new ActionListener() { /// 1/2 = 0.5วิ 
+
+            hideCardTimer = new Timer((1000 / 2), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     hideCards();
@@ -96,14 +99,10 @@ public class panelBoard extends JPanel {
             });
             hideCardTimer.setRepeats(false);
             hideCardTimer.stop();
-            
         }
-    
     }
 
-    public int getScoreCount() {
-        return this.scoreCount;
-    }
+    public int getScoreCount() { return this.scoreCount; }
 
     public void setupCards() {
         cardSet = new ArrayList<>();
@@ -115,20 +114,19 @@ public class panelBoard extends JPanel {
 
             Image cardImg = new ImageIcon(url).getImage();
             ImageIcon cardImageIcon = new ImageIcon(
-                cardImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH)
+                cardImg.getScaledInstance(cardwidth, cardHeight, Image.SCALE_SMOOTH)
             );
 
-            Image cardBackImg = new ImageIcon(getClass().getResource("/img/back.jpg")).getImage();
-            cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, java.awt.Image.SCALE_SMOOTH));
+            // ✅ ใช้ CardSet เลือกภาพหลังการ์ด
+            Image cardBackImg = new ImageIcon(
+                getClass().getResource("/img/" + CardSet.getBackImage(setName))
+            ).getImage();
+            cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, Image.SCALE_SMOOTH));
 
-            //  ใช้ Factory ในการสร้างการ์ด (สุ่มสถานะ)
             Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
- 
-
         }
 
-        // cardSet.addAll(new ArrayList<>(cardSet));
         cardSet.addAll(cardSet);
     }
 
