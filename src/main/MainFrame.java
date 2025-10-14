@@ -31,8 +31,12 @@ public class MainFrame extends JFrame {
         MatchPicture gamePanel2 = new MatchPicture(currentUser, "hard"); // Pony set
 
         // หน้า GameOver
+<<<<<<< HEAD
         panelOver gameOverPanel = new panelOver(UserManager.getNormalRanking(),"easy");
         panelOver gameOverPanel2 = new panelOver(UserManager.getHardRanking(),"hard");
+=======
+        panelOver gameOverPanel = new panelOver(userManager.getNormalRanking());
+>>>>>>> 9c0d8419121608cf41af4f6a9333de472e799dc5
 
 
         //  set callback จากหน้าเกม
@@ -42,6 +46,7 @@ public class MainFrame extends JFrame {
             gameOverPanel.setHightestScore(currentUser.getNormalScore(),gamePanel.getCurrentScore());
             System.out.println(currentUser.getNormalScore());
             System.out.println(gamePanel.getCurrentScore());
+<<<<<<< HEAD
             
             if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
                 UserManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
@@ -49,6 +54,14 @@ public class MainFrame extends JFrame {
             }
             
             gameOverPanel.updateRank(UserManager.getNormalRanking());
+=======
+            if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
+                userManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+                currentUser.setHardScore(gamePanel.getCurrentScore());
+            }
+            
+            gameOverPanel.updateRank(userManager.getNormalRanking());
+>>>>>>> 9c0d8419121608cf41af4f6a9333de472e799dc5
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
             
