@@ -107,7 +107,7 @@ public class panelOver extends JPanel {
 
         // เพิ่ม JLabel ใหม่
         for(User u:currentRank){
-            JLabel tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getScore());
+            JLabel tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getNormalScore()); // to folk แก้ score
             tmp.setFont(new Font("Arial", Font.BOLD, 15));
             tmp.setHorizontalAlignment(SwingConstants.LEFT);
             tmp.setAlignmentX(Component.CENTER_ALIGNMENT);

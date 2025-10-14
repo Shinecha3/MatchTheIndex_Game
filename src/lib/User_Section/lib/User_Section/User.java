@@ -3,12 +3,14 @@ package lib.User_Section;
 public class User {
     private String username;
     private String password;
-    private int score;
+    private int normalScore;
+    private int hardScore;
 
-    public User(String username, String password, int score){
+    public User(String username, String password, int normalScore, int hardScore){
         this.username = username;
         this.password = password;
-        this.score = score;
+        this.normalScore = normalScore;
+        this.hardScore = hardScore;
     }
 
     public String getUsername(){
@@ -19,17 +21,25 @@ public class User {
         return password;
     }
 
-    public int getScore(){
-        return score;
+    public int getNormalScore(){
+        return normalScore;
     }
 
-    public void setScore(int score){
-        this.score = score;
+    public int getHardScore(){
+        return hardScore;
+    }
+
+    public void setNormalScore(int normalScore){
+        this.normalScore = normalScore;
+    }
+    
+    public void setHardScore(int hardScore){
+        this.hardScore = hardScore;
     }
 
     @Override
     public String toString(){
-        return username + "," + password + "," + score;
+        return username + "," + password + "," + normalScore + "," + hardScore;
     }
 
 }
