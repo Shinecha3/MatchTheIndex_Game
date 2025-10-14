@@ -78,7 +78,7 @@ public class panelBoard extends JPanel {
                             int index = board.indexOf(card2Selected);
                             card2Selected.setIcon(cardSet.get(index).getImage());
                             if (card1Selected.getIcon() != card2Selected.getIcon()) {
-                                statsPanel.addTime(-1);
+                                statsPanel.addTime(-2);
                                 hideCardTimer.start();
                                 playSound("false");
 

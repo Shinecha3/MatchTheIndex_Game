@@ -22,7 +22,6 @@ public class MainFrame extends JFrame {
         cards = new JPanel(cardLayout);
 
         User currentUser = inputUser;
-        UserManager userManager;
         // หน้าเริ่ม
         panelStart menuPanel = new panelStart();
 
@@ -78,7 +77,6 @@ public class MainFrame extends JFrame {
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
-            // userManager.();
             lastGame = "Game";
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
