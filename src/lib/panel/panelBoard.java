@@ -1,13 +1,17 @@
 package lib.panel;
 
 import java.awt.*;
+import javax.sound.sampled.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
 import lib.cardClass.Factory.*;
 
 public class panelBoard extends JPanel {
+    
 
+    private String mode;
     private String setName;
     String[] cardList;
 
@@ -23,7 +27,7 @@ public class panelBoard extends JPanel {
     int scoreCount = 0;
     ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
     Timer hideCardTimer;
-    int hideCardDely = (1000) * 2;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
+    int hideCardDely;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
     boolean gameReady = false;
     JButton card1Selected;
     JButton card2Selected;
@@ -35,12 +39,17 @@ public class panelBoard extends JPanel {
         this.boardRun = boardRun;
     }
 
-    public panelBoard(JButton restartButton, panelStats statsPanel) {
+    public panelBoard(JButton restartButton, panelStats statsPanel,String mode) {
+        this.mode = mode;
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
         this.setName = CardSet.getRandomCardSet();
-
-        // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต
+        if (mode.toLowerCase().equals("easy")) {
+            hideCardDely = (1000) * 2;
+        }else if (mode.toLowerCase().equals("hard")){
+            hideCardDely = 0;
+        }
+        // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต  
         this.cardList = CardSet.getSet(setName);
         setupCards();
         shuffleCards();
@@ -68,17 +77,21 @@ public class panelBoard extends JPanel {
                             card2Selected = tile;
                             int index = board.indexOf(card2Selected);
                             card2Selected.setIcon(cardSet.get(index).getImage());
-
                             if (card1Selected.getIcon() != card2Selected.getIcon()) {
+                                statsPanel.addTime(-1);
                                 hideCardTimer.start();
+                                playSound("false");
+
                             } else {
+                                playSound("true");
                                 scoreCount += cardSet.get(index).getScore();
                                 statsPanel.updateScore(scoreCount);
                                 card1Selected = null;
                                 card2Selected = null;
+                                statsPanel.addTime(5);
                                 if (isBoardCleared()) {
                                     reCard(CardSet.getRandomCardSet());
-                                    statsPanel.addTime(15);
+                                    
                                 }
                             }
                         }
@@ -88,13 +101,21 @@ public class panelBoard extends JPanel {
 
            board.add(title);
             this.add(title);
-
-            hideCardTimer = new Timer((1000 / 2), new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    hideCards();
-                }
-            });
+            if (mode.toLowerCase().equals("easy")) {
+                    hideCardTimer = new Timer((750), new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        hideCards();
+                    }
+                });
+            }else if (mode.toLowerCase().equals("hard")){
+                    hideCardTimer = new Timer(500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        hideCards();
+                    }
+                });
+            }
             hideCardTimer.setRepeats(false);
             hideCardTimer.stop();
         }
@@ -199,24 +220,35 @@ public class panelBoard extends JPanel {
     }   
 
     public void startHide(){
-        Delay = new Timer(hideCardDely, new ActionListener() {
+        
+        if (mode.toLowerCase().equals("easy")) {
+            Delay = new Timer(hideCardDely, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    hideCards();
+                }
+                
+            });
+            Delay.setRepeats(false);
+            Delay.start();
+        }else if (mode.toLowerCase().equals("hard")){
+            hideCards();
+        }
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                hideCardTimer.start();
-            }
-            
-        });
-        Delay.setRepeats(false);
-        Delay.start();
+
         
     }
 
     public void stopTimer() {
         hideCardTimer.restart();
         hideCardTimer.stop();
-        Delay.restart();
-        Delay.stop();
+        if (mode.toLowerCase().equals("easy")) {
+            Delay.restart();
+            Delay.stop();
+        }else if (mode.toLowerCase().equals("hard")){
+            hideCards();
+        }
+
     }
 
     public void resetTimer() {
@@ -234,4 +266,22 @@ public class panelBoard extends JPanel {
     return true; // การ์ดเปิดหมดแล้ว
     }
 
+    public void playSound(String sound){
+        try {
+            // โหลดไฟล์เสียง
+            File file = new File("src\\sound\\"+ sound.toLowerCase() +".wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+
+            // เปิด clip
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+
+            // เล่นเสียง
+            clip.start();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

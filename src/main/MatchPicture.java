@@ -12,6 +12,7 @@ public class MatchPicture extends JPanel {
     int cardwidth = 90;
     int cardHeight = 90;
 
+    String mode;
     int boardWidth = columns * cardwidth;
     int boardHeight = rows * cardHeight;
 
@@ -28,14 +29,15 @@ public class MatchPicture extends JPanel {
     }
 
     // ✅ รับ setName เพื่อส่งต่อให้ panelBoard
-    public MatchPicture(User currentPlayer) {
+    public MatchPicture(User currentPlayer, String mode) {
+        this.mode = mode.toLowerCase();
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(boardWidth, boardHeight));
 
         statsPanel = new panelStats(boardWidth, currentPlayer.getUsername());
         this.add(statsPanel, BorderLayout.NORTH);
 
-        boardPanel = new panelBoard(restartButton, statsPanel);
+        boardPanel = new panelBoard(restartButton, statsPanel, mode);
         this.add(boardPanel, BorderLayout.CENTER);
 
         statsPanel.setOnTimeUp(() -> {

@@ -11,14 +11,15 @@ public class panelOver extends JPanel {
     private int currentScore;
     private int highestScore;
     
-    JPanel scoreboardPanel; // สร้าง scoreboardPanel ใน class
-    JLabel gameOverLabel;
-    JLabel highestScoreLabel;
-    int top5 = 5;
-    int rank = 1;
-    List<User> currentRank;
+    private String mode;
+    private JPanel scoreboardPanel; // สร้าง scoreboardPanel ใน class
+    private JLabel gameOverLabel;
+    private JLabel highestScoreLabel;
+    private List<User> currentRank;
+    private JLabel tmp;
     
-    public panelOver(List<User> ranking) {
+    public panelOver(List<User> ranking,String mode) {
+        this.mode = mode;
         currentRank = ranking;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
@@ -26,7 +27,7 @@ public class panelOver extends JPanel {
         scoreboardPanel = new JPanel();
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
 
-        setRank();
+        setRank(mode);
 
         gameOverLabel = new JLabel("Game Over! You Get "+ currentScore , SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 22));
@@ -56,11 +57,6 @@ public class panelOver extends JPanel {
         buttonPanel.add(restartButton);
 
         this.add(buttonPanel);
-    }
-
-    private Font Font(String string, int bold, int i) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Font'");
     }
 
     //  getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
@@ -94,20 +90,22 @@ public class panelOver extends JPanel {
     
     public void updateRank(List<User> newRank){
         this.currentRank = newRank;
-        setRank();
+        setRank(mode);
     }
 
-    public void setRank(){
+    public void setRank(String mode){
         // ลบ JLabel เก่าทั้งหมด
         scoreboardPanel.removeAll();
-
-        // Reset rank and top5
-        rank = 1;
-        top5 = 5;
+        int top5 = 5;
+        int rank = 1;
 
         // เพิ่ม JLabel ใหม่
         for(User u:currentRank){
-            JLabel tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getNormalScore()); // to folk แก้ score
+            if (mode.toLowerCase().equals("easy")){
+                tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getNormalScore());
+            } else if (mode.toLowerCase().equals("hard")){
+                tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getHardScore());                
+            }
             tmp.setFont(new Font("Arial", Font.BOLD, 15));
             tmp.setHorizontalAlignment(SwingConstants.LEFT);
             tmp.setAlignmentX(Component.CENTER_ALIGNMENT);

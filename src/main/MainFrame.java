@@ -27,12 +27,12 @@ public class MainFrame extends JFrame {
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture(currentUser);       // Kuromi set
-        MatchPicture gamePanel2 = new MatchPicture(currentUser); // Pony set
+        MatchPicture gamePanel = new MatchPicture(currentUser, "easy");       // Kuromi set
+        MatchPicture gamePanel2 = new MatchPicture(currentUser, "hard"); // Pony set
 
         // หน้า GameOver
-        panelOver gameOverPanel = new panelOver(UserManager.getNormalRanking());
-        panelOver gameOverPanel2 = new panelOver(UserManager.getHardRanking());
+        panelOver gameOverPanel = new panelOver(UserManager.getNormalRanking(),"easy");
+        panelOver gameOverPanel2 = new panelOver(UserManager.getHardRanking(),"hard");
 
 
         //  set callback จากหน้าเกม
@@ -59,19 +59,18 @@ public class MainFrame extends JFrame {
         // gamePanel2.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
 
         gamePanel2.setOnGameOver(() -> {
-            
-            System.out.println(gamePanel.getCurrentScore());
-            gameOverPanel.setHightestScore(currentUser.getNormalScore(),gamePanel.getCurrentScore());
-            System.out.println(currentUser.getNormalScore());
-            System.out.println(gamePanel.getCurrentScore());
-            if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
-                UserManager.updateHardScore(currentUser.getUsername(), gamePanel.getCurrentScore());
-                currentUser.setNormalScore(gamePanel.getCurrentScore());
+            System.out.println(gamePanel2.getCurrentScore());
+            gameOverPanel2.setHightestScore(currentUser.getHardScore(),gamePanel2.getCurrentScore());
+            System.out.println(currentUser.getHardScore());
+            System.out.println(gamePanel2.getCurrentScore());
+            if (currentUser.getHardScore() < gamePanel2.getCurrentScore()) {
+                UserManager.updateHardScore(currentUser.getUsername(), gamePanel2.getCurrentScore());
+                currentUser.setNormalScore(gamePanel2.getCurrentScore());
             }
             
-            gameOverPanel.updateRank(UserManager.getHardRanking());
-            gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
-            cardLayout.show(cards, "GameOver");
+            gameOverPanel2.updateRank(UserManager.getHardRanking());
+            gameOverPanel2.setCurrentScore(gamePanel2.getCurrentScore());
+            cardLayout.show(cards, "GameOver2");
             
         });
 
@@ -96,8 +95,23 @@ public class MainFrame extends JFrame {
             cardLayout.show(cards, "Menu");
         });
 
+        gameOverPanel2.getBackToMenuButton().addActionListener(e -> {
+            cardLayout.show(cards, "Menu");
+        });
+
         //  set action ของปุ่ม Restart Game ที่อยู่ใน panelGameOver
         gameOverPanel.getRestartButton().addActionListener(e -> {
+            if (lastGame.equals("Game")) {
+                cardLayout.show(cards, "Game");
+                gamePanel.startGame();
+            } else if (lastGame.equals("Game2")) {
+                cardLayout.show(cards, "Game2");
+                gamePanel2.startGame();
+            }
+            gamePanel.startGame(); // เริ่มเกมใหม่ทันที
+        });
+
+        gameOverPanel2.getRestartButton().addActionListener(e -> {
             if (lastGame.equals("Game")) {
                 cardLayout.show(cards, "Game");
                 gamePanel.startGame();

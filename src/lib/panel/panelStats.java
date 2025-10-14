@@ -1,6 +1,7 @@
 package lib.panel;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Time;
 
 public class panelStats extends JPanel {
     private JLabel scoreLabel;
@@ -8,9 +9,11 @@ public class panelStats extends JPanel {
     private JLabel PlayernameLabel;
 
     private int scoreCount = 0;
-    private int time = 30;
+    private int time = 20;
     private int timeLeft = time;  
     private Timer gameTimer;
+    
+    int popTime=0;
 
     private Runnable onTimeUp;
     public panelStats(int boardWidth,String playerName) {
@@ -33,11 +36,20 @@ public class panelStats extends JPanel {
         //  Timer สำหรับนับถอยหลัง
         gameTimer = new Timer(1000, e -> {
             timeLeft--;
-            timeLabel.setText("Time: " + timeLeft);
+            if (popTime != 0) {
+                if (popTime > 0) {
+                    timeLabel.setText("Time: " + timeLeft + " +" + popTime);
+                }else{ timeLabel.setText("Time: " + timeLeft + " " + popTime); }
 
+            }else{
+                timeLabel.setText("Time: " + timeLeft); 
+                
+            }
+            
+            popTime = 0;
             if (timeLeft <= 0) {
                 if (onTimeUp != null) {
-                    onTimeUp.run(); // ✅ เรียก action จาก panelBoard/MatchPicture
+                    onTimeUp.run(); //  เรียก action จาก panelBoard/MatchPicture
                     scoreCount = 0;
                     scoreLabel.setText("Score: 0");
                 }
@@ -74,6 +86,7 @@ public class panelStats extends JPanel {
 
     public void addTime(int sec) {
         this.timeLeft += sec;
+        popTime = sec;
     }
 
     public int getScoreCount(){return this.scoreCount;}
