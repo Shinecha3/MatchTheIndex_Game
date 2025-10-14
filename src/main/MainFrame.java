@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture("img", currentUser);       // Kuromi set
+        MatchPicture gamePanel = new MatchPicture("imgslm", currentUser);       // Kuromi set
         MatchPicture gamePanel2 = new MatchPicture("img", currentUser); // Pony set
         MatchPicture gamePanel3 = new MatchPicture("img", currentUser); // slm set
         // หน้า GameOver

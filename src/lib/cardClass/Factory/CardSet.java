@@ -14,8 +14,8 @@ public class CardSet {
 
             case "imgslm":
                 return new String[]{
-                    "angry", "black", "cople", "eat",
-                    "ice", "wow", "lov", "kids"
+                    "setB_angry", "setB_black", "setB_cople", "setB_eat",
+                    "setB_ice", "setB_wow", "setB_lov", "setB_kids"
                 };
 
             default: // img
