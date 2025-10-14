@@ -13,11 +13,12 @@ public class UserManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 3) {
+                if (data.length == 4) {
                     String username = data[0];
                     String password = data[1];
-                    int score = Integer.parseInt(data[2]);
-                    users.add(new User(username, password, score));
+                    int normalScore = Integer.parseInt(data[2]);
+                    int hardScore = Integer.parseInt(data[3]);
+                    users.add(new User(username, password, normalScore, hardScore));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -54,7 +55,7 @@ public class UserManager {
                 return false; // มี user อยู่แล้ว
             }
         }
-        users.add(new User(username, password, 0));
+        users.add(new User(username, password, 0, 0));
         saveUsers(users);
         return true;
     }
@@ -75,12 +76,12 @@ public class UserManager {
         return null; // login fail
     }
 
-    // update score (เช่นหลังจบเกม)
-    public  boolean updateScore(String username, int newScore) {
+    // update normal score mode
+    public static boolean updateNormalScore(String username, int newNormalScore) {
         List<User> users = loadUsers();
         for (User u : users) {
             if (u.getUsername().equals(username)) {
-                u.setScore(newScore);
+                u.setNormalScore(newNormalScore);
                 saveUsers(users);
                 return true;
             }
@@ -88,12 +89,35 @@ public class UserManager {
         return false;
     }
 
-    // จัดอับดับ ranking score 
-    public  List<User> getRanking(){
+     // update hard score mode
+    public static boolean updateHardScore(String username, int newHardScore) {
+        List<User> users = loadUsers();
+        for (User u : users) {
+            if (u.getUsername().equals(username)) {
+                u.setHardScore(newHardScore);
+                saveUsers(users);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // จัดอับดับ normal ranking score 
+    public static List<User> getNormalRanking(){
         // โหลด user ทั้งหมดจากไฟล์ csv 
         List<User> users = loadUsers();
         // ทำการเรียงลำดับโดยเรียงจาก score
-        users.sort((user1, user2) -> Integer.compare(user2.getScore(), user1.getScore()));
+        users.sort((user1, user2) -> Integer.compare(user2.getNormalScore(), user1.getNormalScore()));
+        // return เป็น list หลังจากเรียงเสร็จแล้ว
+        return users;
+    }
+
+    // จัดอับดับ hard ranking score 
+    public static List<User> getHardRanking(){
+        // โหลด user ทั้งหมดจากไฟล์ csv 
+        List<User> users = loadUsers();
+        // ทำการเรียงลำดับโดยเรียงจาก score
+        users.sort((user1, user2) -> Integer.compare(user2.getHardScore(), user1.getHardScore()));
         // return เป็น list หลังจากเรียงเสร็จแล้ว
         return users;
     }
