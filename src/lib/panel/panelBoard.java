@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import lib.cardClass.Factory.*;
-import lib.cardClass.Factory.NormalCard;
 
 public class panelBoard extends JPanel {
 
@@ -36,10 +35,10 @@ public class panelBoard extends JPanel {
         this.boardRun = boardRun;
     }
 
-    public panelBoard(JButton restartButton, panelStats statsPanel, String setName) {
+    public panelBoard(JButton restartButton, panelStats statsPanel) {
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
-        this.setName = setName;
+        this.setName = randomCardSet();
 
         // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต
         this.cardList = CardSet.getSet(setName);
@@ -78,7 +77,7 @@ public class panelBoard extends JPanel {
                                 card1Selected = null;
                                 card2Selected = null;
                                 if (isBoardCleared()) {
-                                    reCard();
+                                    reCard(randomCardSet());
                                     statsPanel.addTime(15);
                                 }
                             }
@@ -104,7 +103,21 @@ public class panelBoard extends JPanel {
     public int getScoreCount() { return this.scoreCount; }
 
     public void setupCards() {
-        cardSet = new ArrayList<>();
+        cardSet = new ArrayList<>();        
+        if (scoreCount > 0 ) {
+            this.cardList = CardSet.getSet(setName);
+        }
+        
+
+        // โหลดภาพหลังการ์ดครั้งเดียว
+        java.net.URL backUrl = getClass().getResource("/img/" + CardSet.getBackImage(setName));
+        if (backUrl == null) {
+            throw new RuntimeException("Back image not found for set: " + setName);
+        }
+        Image cardBackImg = new ImageIcon(backUrl).getImage();
+        cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, Image.SCALE_SMOOTH));
+
+        // โหลดภาพการ์ดแต่ละใบ
         for (String cardName : cardList) {
             java.net.URL url = getClass().getResource("/img/" + cardName + ".jpg");
             if (url == null) {
@@ -116,18 +129,13 @@ public class panelBoard extends JPanel {
                 cardImg.getScaledInstance(cardwidth, cardHeight, Image.SCALE_SMOOTH)
             );
 
-            // ✅ ใช้ CardSet เลือกภาพหลังการ์ด
-            Image cardBackImg = new ImageIcon(
-                getClass().getResource("/img/" + CardSet.getBackImage(setName))
-            ).getImage();
-            cardBackImageIcon = new ImageIcon(cardBackImg.getScaledInstance(cardwidth, cardHeight, Image.SCALE_SMOOTH));
-
             Card card = new NormalCard(cardName, cardImageIcon);
             cardSet.add(card);
         }
 
-        cardSet.addAll(cardSet);
-    }
+    // ทำให้เป็นคู่ (2 ใบต่อ 1 การ์ด)
+    cardSet.addAll(new ArrayList<>(cardSet));
+}
 
     public void shuffleCards() {
         // System.out.println(cardSet);
@@ -173,11 +181,13 @@ public class panelBoard extends JPanel {
         startHide();
     }
 
-    public void reCard() {
+    public void reCard(String newSetName) {
         hideCards();
         card1Selected = null;
         card2Selected = null;
 
+        this.setName = newSetName;  // เปลี่ยนชื่อเซต
+        setupCards();               // โหลดการ์ดตามเซตใหม่
         shuffleCards();
 
         for (int i = 0; i < board.size(); i++) {
@@ -186,7 +196,7 @@ public class panelBoard extends JPanel {
 
         stopTimer();
         resetTimer();
-    }    
+    }   
 
     public void startHide(){
         Delay = new Timer(hideCardDely, new ActionListener() {
@@ -222,5 +232,15 @@ public class panelBoard extends JPanel {
         }
     }
     return true; // การ์ดเปิดหมดแล้ว
-}
+    }
+
+    public static String randomCardSet() {
+        String[] allSets = {
+                    "imghorse", "imgslm", "img"
+                };
+        int randIndex = (int) (Math.random() * allSets.length);
+        System.err.println(new String(allSets[randIndex]));
+        return new String(allSets[randIndex]);
+    }
+
 }

@@ -9,6 +9,7 @@ public class MainFrame extends JFrame {
     CardLayout cardLayout;
     JPanel cards;
     String lastGame = "";
+    
 
     public MainFrame(User inputUser) {
         this.setTitle("Match Game");
@@ -21,17 +22,17 @@ public class MainFrame extends JFrame {
         cards = new JPanel(cardLayout);
 
         User currentUser = inputUser;
-        UserManager userManager = new UserManager();
-    
+        UserManager userManager;
         // หน้าเริ่ม
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture("imgslm", currentUser);       // Kuromi set
-        MatchPicture gamePanel2 = new MatchPicture("img", currentUser); // Pony set
-        MatchPicture gamePanel3 = new MatchPicture("img", currentUser); // slm set
+        MatchPicture gamePanel = new MatchPicture(currentUser);       // Kuromi set
+        MatchPicture gamePanel2 = new MatchPicture(currentUser); // Pony set
+
         // หน้า GameOver
-        panelOver gameOverPanel = new panelOver(userManager.getNormalRanking());
+        panelOver gameOverPanel = new panelOver(UserManager.getNormalRanking());
+        panelOver gameOverPanel2 = new panelOver(UserManager.getHardRanking());
 
 
         //  set callback จากหน้าเกม
@@ -41,12 +42,13 @@ public class MainFrame extends JFrame {
             gameOverPanel.setHightestScore(currentUser.getNormalScore(),gamePanel.getCurrentScore());
             System.out.println(currentUser.getNormalScore());
             System.out.println(gamePanel.getCurrentScore());
+            
             if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
-                userManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+                UserManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
                 currentUser.setHardScore(gamePanel.getCurrentScore());
             }
             
-            gameOverPanel.updateRank(userManager.getNormalRanking());
+            gameOverPanel.updateRank(UserManager.getNormalRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
             
@@ -63,32 +65,16 @@ public class MainFrame extends JFrame {
             System.out.println(currentUser.getNormalScore());
             System.out.println(gamePanel.getCurrentScore());
             if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
-                userManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
+                UserManager.updateHardScore(currentUser.getUsername(), gamePanel.getCurrentScore());
                 currentUser.setNormalScore(gamePanel.getCurrentScore());
             }
             
-            gameOverPanel.updateRank(userManager.getNormalRanking());
+            gameOverPanel.updateRank(UserManager.getHardRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
             
         });
 
-        gamePanel3.setOnGameOver(() -> {
-            
-            System.out.println(gamePanel.getCurrentScore());
-            gameOverPanel.setHightestScore(currentUser.getNormalScore(),gamePanel.getCurrentScore());
-            System.out.println(currentUser.getNormalScore());
-            System.out.println(gamePanel.getCurrentScore());
-            if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
-                userManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
-                currentUser.setNormalScore(gamePanel.getCurrentScore());
-            }
-            
-            gameOverPanel.updateRank(userManager.getNormalRanking());
-            gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
-            cardLayout.show(cards, "GameOver");
-            
-        });
 
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
@@ -104,11 +90,6 @@ public class MainFrame extends JFrame {
             cardLayout.show(cards, "Game2");
             gamePanel2.startGame();
         });
-        menuPanel.getStartSlmButton().addActionListener(e -> {
-            lastGame = "Game3";
-            cardLayout.show(cards, "Game3");
-            gamePanel3.startGame();
-        });
 
         //  set action ของปุ่ม Back to Menu ที่อยู่ใน panelGameOver
         gameOverPanel.getBackToMenuButton().addActionListener(e -> {
@@ -123,9 +104,6 @@ public class MainFrame extends JFrame {
             } else if (lastGame.equals("Game2")) {
                 cardLayout.show(cards, "Game2");
                 gamePanel2.startGame();
-            } else if (lastGame.equals("Game3")) {
-                cardLayout.show(cards, "Game3");
-                gamePanel3.startGame();
             }
             gamePanel.startGame(); // เริ่มเกมใหม่ทันที
         });
@@ -134,8 +112,8 @@ public class MainFrame extends JFrame {
         cards.add(menuPanel, "Menu");
         cards.add(gamePanel, "Game");
         cards.add(gamePanel2, "Game2");
-        cards.add(gamePanel3, "Game3");
         cards.add(gameOverPanel, "GameOver");
+        cards.add(gameOverPanel2, "GameOver2");
 
         this.add(cards);
         this.setVisible(true);

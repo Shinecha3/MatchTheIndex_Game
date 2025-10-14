@@ -28,14 +28,14 @@ public class MatchPicture extends JPanel {
     }
 
     // ✅ รับ setName เพื่อส่งต่อให้ panelBoard
-    public MatchPicture(String setName, User currentPlayer) {
+    public MatchPicture(User currentPlayer) {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(boardWidth, boardHeight));
 
         statsPanel = new panelStats(boardWidth, currentPlayer.getUsername());
         this.add(statsPanel, BorderLayout.NORTH);
 
-        boardPanel = new panelBoard(restartButton, statsPanel, setName);
+        boardPanel = new panelBoard(restartButton, statsPanel);
         this.add(boardPanel, BorderLayout.CENTER);
 
         statsPanel.setOnTimeUp(() -> {

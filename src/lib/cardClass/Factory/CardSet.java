@@ -7,9 +7,9 @@ public class CardSet {
 
             case "imghorse":
                 return new String[]{
-                    "applejack", "fluttershy", "glasses", "perple",
-                    "pink", "pinkiepie", "rainbow",
-                    "rainbowdash"
+                    "setC_applejack", "setC_fluttershy", "setC_glasses", "setC_perple",
+                    "setC_pink", "setC_pinkiepie", "setC_rainbow",
+                    "setC_rainbowdash"
                 };
 
             case "imgslm":
@@ -21,7 +21,7 @@ public class CardSet {
             default: // img
                 return new String[]{
                     "setA_duo", "setA_hand", "setA_heart", "setA_lego",
-                    "setA_princess", "setA_shine", "setA_smile", "setA_tail"
+                    "setA_princess", "setA_shine", "setA_smile", "setA_tail2"
                 };
         }
     }
