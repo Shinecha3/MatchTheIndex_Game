@@ -21,7 +21,7 @@ public class CardSet {
             default: // img
                 return new String[]{
                     "setA_duo", "setA_hand", "setA_heart", "setA_lego",
-                    "setA_princess", "setA_shine", "setA_smile", "setA_tail2"
+                    "setA_princess", "setA_shine", "setA_smile", "setA_tail"
                 };
         }
     }
@@ -35,5 +35,14 @@ public class CardSet {
             default:
                 return "back.jpg";
         }
+    }
+
+    public static String getRandomCardSet() {
+        String[] allSets = {
+                    "imghorse", "imgslm", "img"
+                };
+        int randIndex = (int) (Math.random() * allSets.length);
+        System.err.println(new String(allSets[randIndex]));
+        return new String(allSets[randIndex]);
     }
 }

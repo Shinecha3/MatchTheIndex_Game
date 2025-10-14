@@ -38,7 +38,7 @@ public class panelBoard extends JPanel {
     public panelBoard(JButton restartButton, panelStats statsPanel) {
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
-        this.setName = randomCardSet();
+        this.setName = CardSet.getRandomCardSet();
 
         // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต
         this.cardList = CardSet.getSet(setName);
@@ -77,7 +77,7 @@ public class panelBoard extends JPanel {
                                 card1Selected = null;
                                 card2Selected = null;
                                 if (isBoardCleared()) {
-                                    reCard(randomCardSet());
+                                    reCard(CardSet.getRandomCardSet());
                                     statsPanel.addTime(15);
                                 }
                             }
@@ -135,7 +135,7 @@ public class panelBoard extends JPanel {
 
     // ทำให้เป็นคู่ (2 ใบต่อ 1 การ์ด)
     cardSet.addAll(new ArrayList<>(cardSet));
-}
+    }
 
     public void shuffleCards() {
         // System.out.println(cardSet);
@@ -232,15 +232,6 @@ public class panelBoard extends JPanel {
         }
     }
     return true; // การ์ดเปิดหมดแล้ว
-    }
-
-    public static String randomCardSet() {
-        String[] allSets = {
-                    "imghorse", "imgslm", "img"
-                };
-        int randIndex = (int) (Math.random() * allSets.length);
-        System.err.println(new String(allSets[randIndex]));
-        return new String(allSets[randIndex]);
     }
 
 }
