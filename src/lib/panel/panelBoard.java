@@ -40,6 +40,7 @@ public class panelBoard extends JPanel {
     }
 
     public panelBoard(JButton restartButton, panelStats statsPanel,String mode) {
+        this.setBackground(Color.GRAY);
         this.mode = mode;
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
