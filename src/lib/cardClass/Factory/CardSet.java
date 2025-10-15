@@ -17,6 +17,12 @@ public class CardSet {
                     "setB_angry", "setB_black", "setB_cople", "setB_eat",
                     "setB_ice", "setB_wow", "setB_lov", "setB_kids"
                 };
+            
+            case "imgfruit":
+                return new String[]{
+                    "setD_fruit1", "setD_fruit2", "setD_fruit3", "setD_fruit4",
+                    "setD_fruit5", "setD_fruit6", "setD_fruit7", "setD_fruit8"
+                };
 
             default: // img
                 return new String[]{
@@ -32,6 +38,8 @@ public class CardSet {
                 return "rain.jpg";
             case "imgslm":
                 return "huh.jpg";
+            case "imgfruit":
+                return "setD_fruit0.jpg";
             default:
                 return "back.jpg";
         }
@@ -39,7 +47,7 @@ public class CardSet {
 
     public static String getRandomCardSet() {
         String[] allSets = {
-                    "imghorse", "imgslm", "img"
+                    "imgfruit", "imgfruit", "imgfruit"
                 };
         int randIndex = (int) (Math.random() * allSets.length);
         System.err.println(new String(allSets[randIndex]));

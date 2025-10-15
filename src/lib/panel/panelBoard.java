@@ -49,18 +49,26 @@ public class panelBoard extends JPanel {
         }else if (mode.toLowerCase().equals("hard")){
             hideCardDely = 0;
         }
-        // ✅ ใช้ CardSet ดึงรายชื่อการ์ดตามเซต  
+        //  ใช้ CardSet ดึงรายชื่อการ์ดตามเซต  
         this.cardList = CardSet.getSet(setName);
         setupCards();
         shuffleCards();
 
-        this.setLayout(new GridLayout(rows, columns));
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 5); // ช่องว่างรอบๆ JButton
+        gbc.fill = GridBagConstraints.BOTH; // ให้ JButton ขยายเต็มพื้นที่
+
         for (int i = 0; i < cardSet.size(); i++) {
             JButton title = new JButton();
             title.setPreferredSize(new Dimension(cardwidth, cardHeight));
             title.setOpaque(true);
             title.setIcon(cardSet.get(i).getImage());
             title.setFocusable(false);
+
+            System.out.println((i+1)+": " + title.getPreferredSize());
 
             title.addActionListener(new ActionListener() {
                 @Override
@@ -100,7 +108,14 @@ public class panelBoard extends JPanel {
             });
 
            board.add(title);
-            this.add(title);
+            this.add(title, gbc);
+
+            gbc.gridx++;
+            if (gbc.gridx >= columns) {
+                gbc.gridx = 0;
+                gbc.gridy++;
+            }
+            
             if (mode.toLowerCase().equals("easy")) {
                     hideCardTimer = new Timer((750), new ActionListener() {
                     @Override
