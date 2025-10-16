@@ -49,12 +49,7 @@ public class SignUpGUI extends JFrame {
         usernamefield = new JTextField();
         usernamefield.setBounds(100, 150+40, 300, 35);
         usernamefield.setForeground(Color.DARK_GRAY);
-        try {
-            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 16);
-            usernamefield.setFont(pixelFont);
-        } catch (Exception e) {
-            e.printStackTrace();;
-        }
+        usernamefield.setFont(new Font("",Font.BOLD,17));
         cp.add(usernamefield);
 
         // สร้าง Label ของ password

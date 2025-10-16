@@ -44,9 +44,9 @@ public class panelBoard extends JPanel {
         this.mode = mode;
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
-        this.setName = CardSet.getRandomCardSet();
+        this.setName = CardSet.getRandomCardSet();  // สุ่มเช็ตการ์ด
         if (mode.toLowerCase().equals("easy")) {
-            hideCardDely = (1000) * 2;
+            hideCardDely = (1000) * 2; // ดีเล ก่อนปิดไพ่
         }else if (mode.toLowerCase().equals("hard")){
             hideCardDely = 0;
         }
@@ -62,6 +62,7 @@ public class panelBoard extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5); // ช่องว่างรอบๆ JButton
         gbc.fill = GridBagConstraints.BOTH; // ให้ JButton ขยายเต็มพื้นที่
 
+        // ไว้สร้างการ์ด ปุ่มกด ระบบจับคู้
         for (int i = 0; i < cardSet.size(); i++) {
             JButton title = new JButton();
             title.setPreferredSize(new Dimension(cardwidth, cardHeight));
@@ -75,7 +76,7 @@ public class panelBoard extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!gameReady) return;
-
+                    
                     JButton tile = (JButton) e.getSource();
                     if (tile.getIcon() == cardBackImageIcon) {
                         if (card1Selected == null) {
@@ -97,7 +98,7 @@ public class panelBoard extends JPanel {
                                 statsPanel.updateScore(scoreCount);
                                 card1Selected = null;
                                 card2Selected = null;
-                                statsPanel.addTime(5);
+                                statsPanel.addTime(3);
                                 if (isBoardCleared()) {
                                     reCard(CardSet.getRandomCardSet());
                                     
