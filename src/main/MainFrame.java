@@ -6,9 +6,9 @@ import lib.panel.*;
 import lib.User_Section.*;;
 
 public class MainFrame extends JFrame {
-    CardLayout cardLayout;
-    JPanel cards;
-    String lastGame = "";
+    private CardLayout cardLayout;
+    private JPanel cards;
+    private String lastGame = "";
     
 
     public MainFrame(User inputUser) {
