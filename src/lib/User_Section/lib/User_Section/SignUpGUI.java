@@ -24,41 +24,47 @@ public class SignUpGUI extends JFrame {
     public void setComponent() {
         // สร้างคำ Signup
         JLabel signupTT = new JLabel("Signup");
+        Color signupColor = new Color(87 , 58 , 31);
+        signupTT.setForeground(signupColor);
         signupTT.setFont(new Font("", Font.BOLD, 52));
         signupTT.setBounds(163, 22, 202, 70);
         cp.add(signupTT);
 
         // สร้าง Label ของ username
         JLabel usernamelabel = new JLabel("Username");
+        Color usernameColor = new Color(123, 42, 59);
+        usernamelabel.setForeground(usernameColor);
         usernamelabel.setBounds(100, 115, 400, 25);
-        usernamelabel.setFont(new Font("", Font.PLAIN, 20));
+        usernamelabel.setFont(new Font("", Font.BOLD, 20));
         cp.add(usernamelabel);
 
         // สร้าง TextField ของ username
         usernamefield = new JTextField();
         usernamefield.setBounds(100, 150, 300, 35);
         usernamefield.setForeground(Color.BLACK);
-        usernamefield.setFont(new Font("", Font.PLAIN, 15));
+        usernamefield.setFont(new Font("", Font.PLAIN, 17));
         cp.add(usernamefield);
 
         // สร้าง Label ของ password
         JLabel passwordlabel = new JLabel("Password");
+        Color passwordColor = new Color(123, 42, 59);
+        passwordlabel.setForeground(passwordColor);
         passwordlabel.setBounds(100, 210, 400, 25);
-        passwordlabel.setFont(new Font("", Font.PLAIN, 20));
+        passwordlabel.setFont(new Font("", Font.BOLD, 20));
         cp.add(passwordlabel);
 
         // สร้าง PasswordField ของ password
         passwordfield = new JPasswordField();
         passwordfield.setBounds(100, 245, 300, 35);
         passwordfield.setForeground(Color.BLACK);
-        passwordfield.setFont(new Font("", Font.PLAIN, 15));
+        passwordfield.setFont(new Font("", Font.PLAIN, 17));
         cp.add(passwordfield);
 
         // สร้างปุ่ม Signup
         JButton signupbutton = new JButton("Signup");
         signupbutton.setFont(new Font("", Font.BOLD, 18));
         signupbutton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signupbutton.setBackground(Color.BLACK);
+        signupbutton.setBackground(new Color(87 , 58 , 31));
         signupbutton.setForeground(Color.WHITE);
         signupbutton.setBounds(150, 340, 200, 40);
         
@@ -119,7 +125,7 @@ public class SignUpGUI extends JFrame {
         // สร้าง label login
         JLabel loginlabel = new JLabel("Have an account? Login Here!");
         loginlabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        loginlabel.setForeground(Color.BLUE);
+        loginlabel.setForeground(Color.DARK_GRAY);
         loginlabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -131,12 +137,12 @@ public class SignUpGUI extends JFrame {
             
             @Override
             public void mouseEntered(MouseEvent e) {
-                loginlabel.setForeground(Color.RED);
+                loginlabel.setForeground(Color.BLUE);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                loginlabel.setForeground(Color.BLUE);
+                loginlabel.setForeground(Color.DARK_GRAY);
             }
         });
         loginlabel.setBounds(163, 430, 200, 20);
@@ -145,6 +151,7 @@ public class SignUpGUI extends JFrame {
 
     public void Finally() {
         setSize(500, 500);
+        cp.setBackground(new Color(250, 239, 200));
         setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);

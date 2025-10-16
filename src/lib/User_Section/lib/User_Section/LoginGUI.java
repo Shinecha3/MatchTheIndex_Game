@@ -26,26 +26,32 @@ public class LoginGUI extends JFrame {
         // สร้างคำ Login
         JLabel loginTT = new JLabel("Login");
         loginTT.setFont(new Font("", Font.BOLD, 52));
+        Color loginColor = new Color(87 , 58 , 31);
+        loginTT.setForeground(loginColor);
         loginTT.setBounds(178, 22, 202, 70);
         cp.add(loginTT);
 
         // สร้าง Label ของ username
         JLabel usernamelabel = new JLabel("Username");
+        Color usernamelabelColor = new Color(123, 42, 59);
+        usernamelabel.setForeground(usernamelabelColor);
         usernamelabel.setBounds(100, 115, 400, 25);
-        usernamelabel.setFont(new Font("", Font.PLAIN, 20));
+        usernamelabel.setFont(new Font("", Font.BOLD, 20));
         cp.add(usernamelabel);
 
         // สร้าง TextField ของ username
         usernamefield = new JTextField();
         usernamefield.setBounds(100, 150, 300, 35);
         usernamefield.setForeground(Color.BLACK);
-        usernamefield.setFont(new Font("", Font.PLAIN, 15));
+        usernamefield.setFont(new Font("", Font.PLAIN, 17));
         cp.add(usernamefield);
 
         // สร้าง Label ของ password
         JLabel passwordlabel = new JLabel("Password");
+        Color passwordlabelColor = new Color(123, 42, 59);
+        passwordlabel.setForeground(passwordlabelColor);
         passwordlabel.setBounds(100, 210, 400, 25);
-        passwordlabel.setFont(new Font("", Font.PLAIN, 20));
+        passwordlabel.setFont(new Font("", Font.BOLD, 20));
         cp.add(passwordlabel);
 
         // สร้าง PasswordField ของ password
@@ -59,7 +65,7 @@ public class LoginGUI extends JFrame {
         JButton loginbutton = new JButton("Login");
         loginbutton.setFont(new Font("", Font.BOLD, 18));
         loginbutton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        loginbutton.setBackground(Color.BLACK);
+        loginbutton.setBackground(new Color(87 , 58 , 31));
         loginbutton.setForeground(Color.WHITE);
         // เพิ่ม ActionListener สำหรับปุ่ม Login
         loginbutton.addActionListener(new ActionListener() {
@@ -80,11 +86,10 @@ public class LoginGUI extends JFrame {
                 // ตรวจสอบ login ผ่าน UserManager
             User user = UserManager.login(username, password);
             if (user != null) {
-                // JOptionPane.showMessageDialog(LoginGUI.this, 
-                //     "Login successful!\nWelcome " + user.getUsername() + 
-                //     "\nYour score: " + user.getScore(), 
-                //     "Success", 
-                //     JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(LoginGUI.this, 
+                    "Login successful!\nWelcome " + user.getUsername() + 
+                    "", "Login Successful",
+                    JOptionPane.INFORMATION_MESSAGE);
 
                 // ปิดหน้า Login
                 LoginGUI.this.dispose();
@@ -105,7 +110,7 @@ public class LoginGUI extends JFrame {
         // สร้าง label signup
         JLabel signuplabel = new JLabel("You are new? Signup Here!");
         signuplabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signuplabel.setForeground(Color.BLUE);
+        signuplabel.setForeground(Color.DARK_GRAY);
         signuplabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -117,12 +122,12 @@ public class LoginGUI extends JFrame {
             
             @Override
             public void mouseEntered(MouseEvent e) {
-                signuplabel.setForeground(Color.RED);
+                signuplabel.setForeground(Color.BLUE);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                signuplabel.setForeground(Color.BLUE);
+                signuplabel.setForeground(Color.DARK_GRAY);
             }
         });
         signuplabel.setBounds(170, 430, 200, 20);
@@ -131,6 +136,7 @@ public class LoginGUI extends JFrame {
 
     public void Finally() {
         setSize(500, 500);
+        cp.setBackground(new Color(250,239, 200));
         setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);
