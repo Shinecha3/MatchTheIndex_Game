@@ -13,27 +13,27 @@ public class panelBoard extends JPanel {
 
     private String mode;
     private String setName;
-    String[] cardList;
+    private String[] cardList;
 
-    int rows = 4;
-    int columns = 4;
-    int cardwidth = 90;
-    int cardHeight = 90;
+    private int rows = 4;
+    private int columns = 4;
+    private int cardwidth = 90;
+    private int cardHeight = 90;
     private JButton restartButton;
     private panelStats statsPanel;
     public ArrayList<Card> cardSet;
-    Timer Delay;
+    private Timer Delay;
 
-    int scoreCount = 0;
-    ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
-    Timer hideCardTimer;
-    int hideCardDely;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
-    boolean gameReady = false;
-    JButton card1Selected;
-    JButton card2Selected;
-    ImageIcon cardBackImageIcon;
+    private int scoreCount = 0;
+    private ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
+    private Timer hideCardTimer;
+    private int hideCardDely;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
+    private boolean gameReady = false;
+    private JButton card1Selected;
+    private JButton card2Selected;
+    private ImageIcon cardBackImageIcon;
 
-    Runnable boardRun;
+    private Runnable boardRun;
 
     public void boardRun(Runnable boardRun) {
         this.boardRun = boardRun;

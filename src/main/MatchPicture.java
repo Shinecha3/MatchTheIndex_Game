@@ -28,7 +28,7 @@ public class MatchPicture extends JPanel {
         this.onGameOver = onGameOver;
     }
 
-    // ✅ รับ setName เพื่อส่งต่อให้ panelBoard
+    //  รับ setName เพื่อส่งต่อให้ panelBoard
     public MatchPicture(User currentPlayer, String mode) {
         this.mode = mode.toLowerCase();
         this.setLayout(new BorderLayout());

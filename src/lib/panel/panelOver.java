@@ -23,7 +23,7 @@ public class panelOver extends JPanel {
         currentRank = ranking;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
-        // สร้าง scoreboardPanel ครั้งเดียว
+        // สร้าง scoreboardPanel 
         scoreboardPanel = new JPanel();
         scoreboardPanel.setLayout(new BoxLayout(scoreboardPanel, BoxLayout.Y_AXIS));
 
@@ -59,7 +59,7 @@ public class panelOver extends JPanel {
         this.add(buttonPanel);
     }
 
-    //  getters สำหรับให้ MainFrame เอาไปใส่ ActionListener
+    //  ให้ MainFrame เอาไปใส่ ActionListener
     public JButton getBackToMenuButton() {
         return backToMenuButton;
     }
