@@ -1,7 +1,7 @@
 package lib.panel;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Time;
+import java.io.File;
 
 public class panelStats extends JPanel {
     private JLabel scoreLabel;
@@ -21,14 +21,30 @@ public class panelStats extends JPanel {
         setLayout(new GridLayout(1, 3)); 
         this.setOpaque(false);
         PlayernameLabel = new JLabel(playerName,SwingConstants.CENTER);
-        PlayernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 13);
+            PlayernameLabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         PlayernameLabel.setForeground(Color.WHITE);
+
         scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 13);
+            scoreLabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         scoreLabel.setForeground(Color.WHITE);
 
         timeLabel = new JLabel("Time: " + timeLeft, SwingConstants.CENTER);
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 13);
+            timeLabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         timeLabel.setForeground(Color.WHITE);
         
         add(PlayernameLabel);

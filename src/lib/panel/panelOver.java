@@ -1,6 +1,7 @@
 package lib.panel;
 import lib.User_Section.*;
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 
 import javax.swing.*;
@@ -28,14 +29,14 @@ public class panelOver extends JPanel {
         currentRank = ranking;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false); // ทำให้ JPanel โปร่งใส
-
+        this.add(Box.createVerticalStrut(60));
         try {
-            URL imageURL = getClass().getClassLoader().getResource("img/setBG.jpg");
+            URL imageURL = getClass().getClassLoader().getResource("img/setRank.jpg");
             if (imageURL != null) {
                 backgroundImage = new ImageIcon(imageURL).getImage();
                 System.out.println("✅ Loaded background image: " + imageURL);
             } else {
-                System.out.println("❌ Image not found at: img/setBG.jpg");
+                System.out.println("❌ Image not found at: img/setRank.jpg");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,16 +50,26 @@ public class panelOver extends JPanel {
         setRank(mode);
 
         gameOverLabel = new JLabel("Game Over! You Get "+ currentScore , SwingConstants.CENTER);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            gameOverLabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        gameOverLabel.setForeground(Color.WHITE); // ตั้งค่าสีตัวอักษรเป็นสีขาว
+        gameOverLabel.setForeground(Color.BLACK); // ตั้งค่าสีตัวอักษรเป็นสีขาว
         gameOverLabel.setOpaque(false); // ทำให้ JLabel โปร่งใส
 
         
         highestScoreLabel = new JLabel("Your HightestScore : "+ highestScore , SwingConstants.CENTER);
-        highestScoreLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            highestScoreLabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         highestScoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        highestScoreLabel.setForeground(Color.WHITE); // ตั้งค่าสีตัวอักษรเป็นสีขาว
+        highestScoreLabel.setForeground(Color.BLACK); // ตั้งค่าสีตัวอักษรเป็นสีขาว
         highestScoreLabel.setOpaque(false); // ทำให้ JLabel โปร่งใส
 
         this.add(Box.createVerticalStrut(50));
@@ -73,10 +84,28 @@ public class panelOver extends JPanel {
         buttonPanel.setOpaque(false); // ทำให้ JPanel โปร่งใส
 
         backToMenuButton = new JButton("giveUp?");
+        backToMenuButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         backToMenuButton.setPreferredSize(new Dimension(160,40));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 15);
+            backToMenuButton.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        backToMenuButton.setBackground(new Color(87 , 58 , 31));
+        backToMenuButton.setForeground(Color.WHITE);
 
-        restartButton = new JButton("Restart Game");
-        restartButton.setPreferredSize(new Dimension(160,60));
+        restartButton = new JButton("Restart");
+        restartButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        restartButton.setPreferredSize(new Dimension(160,40));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 15);
+            restartButton.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        restartButton.setBackground(new Color(87 , 58 , 31));
+        restartButton.setForeground(Color.WHITE);
 
         buttonPanel.add(backToMenuButton);
         buttonPanel.add(restartButton);
@@ -131,7 +160,12 @@ public class panelOver extends JPanel {
             } else if (mode.toLowerCase().equals("hard")){
                 tmp = new JLabel("[ Rank "+ rank + " ] " + u.getUsername() + " Score : " + u.getHardScore());                
             }
-            tmp.setFont(new Font("Arial", Font.BOLD, 15));
+            try {
+                Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 15);
+                tmp.setFont(pixelFont);
+            } catch (Exception e) {
+                e.printStackTrace();;
+            }
             tmp.setHorizontalAlignment(SwingConstants.LEFT);
             tmp.setAlignmentX(Component.CENTER_ALIGNMENT);
             tmp.setForeground(Color.WHITE); // ตั้งค่าสีตัวอักษรเป็นสีขาว

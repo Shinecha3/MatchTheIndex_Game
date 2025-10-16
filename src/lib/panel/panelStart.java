@@ -1,6 +1,8 @@
 package lib.panel;
 
 import java.awt.*;
+import java.io.File;
+
 import javax.swing.*;
 import java.net.URL;
 
@@ -18,9 +20,9 @@ public class panelStart extends JPanel {
             URL imageURL = getClass().getClassLoader().getResource("img/setBG.jpg");
             if (imageURL != null) {
                 backgroundImage = new ImageIcon(imageURL).getImage();
-                System.out.println("✅ Loaded background image: " + imageURL);
+                System.out.println(" Loaded background image: " + imageURL);
             } else {
-                System.out.println("❌ Image not found at: img/setBG.png");
+                System.out.println(" Image not found at: img/setBG.png");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,16 +30,32 @@ public class panelStart extends JPanel {
 
         // ปุ่ม Easy
         startButton = new JButton("Easy");
-        startButton.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
+        startButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            startButton.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         //startButton.setBackground(new Color(255, 255, 255, 255)); // โปร่งนิดหน่อย
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
+        startButton.setBackground(Color.BLACK);
+        startButton.setForeground(Color.WHITE);
         startButton.setBounds(20, 200, 120, 55); // <<< ปรับตำแหน่งตามภาพคุณ
         add(startButton);
 
         // ปุ่ม Hard
         start2Button = new JButton("Hard");
-        start2Button.setFont(new Font("Comic Sans MS", Font.BOLD, 22));
+        start2Button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            start2Button.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        start2Button.setBackground(Color.BLACK);
+        start2Button.setForeground(Color.WHITE);
         //start2Button.setBackground(new Color(255, 255, 255, 255));
         start2Button.setFocusPainted(false);
         start2Button.setBorderPainted(false);

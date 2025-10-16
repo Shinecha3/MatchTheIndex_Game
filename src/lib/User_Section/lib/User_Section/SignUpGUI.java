@@ -3,6 +3,7 @@ package lib.User_Section;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class SignUpGUI extends JFrame {
     Container cp;
@@ -24,32 +25,53 @@ public class SignUpGUI extends JFrame {
     public void setComponent() {
         // สร้างคำ Signup
         JLabel signupTT = new JLabel("Signup");
-        signupTT.setFont(new Font("", Font.BOLD, 52));
-        signupTT.setBounds(163, 22, 202, 70);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 42);
+            signupTT.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        signupTT.setBounds(164, 50+10, 202, 70);
         cp.add(signupTT);
 
         // สร้าง Label ของ username
         JLabel usernamelabel = new JLabel("Username");
-        usernamelabel.setBounds(100, 115, 400, 25);
-        usernamelabel.setFont(new Font("", Font.PLAIN, 20));
+        usernamelabel.setBounds(100, 115+40, 400, 25);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            usernamelabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         cp.add(usernamelabel);
 
         // สร้าง TextField ของ username
         usernamefield = new JTextField();
-        usernamefield.setBounds(100, 150, 300, 35);
-        usernamefield.setForeground(Color.BLACK);
-        usernamefield.setFont(new Font("", Font.PLAIN, 15));
+        usernamefield.setBounds(100, 150+40, 300, 35);
+        usernamefield.setForeground(Color.DARK_GRAY);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 16);
+            usernamefield.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         cp.add(usernamefield);
 
         // สร้าง Label ของ password
         JLabel passwordlabel = new JLabel("Password");
-        passwordlabel.setBounds(100, 210, 400, 25);
-        passwordlabel.setFont(new Font("", Font.PLAIN, 20));
+        passwordlabel.setBounds(100, 210+40, 400, 25);
+        passwordlabel.setForeground(Color.BLACK);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            passwordlabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         cp.add(passwordlabel);
 
         // สร้าง PasswordField ของ password
         passwordfield = new JPasswordField();
-        passwordfield.setBounds(100, 245, 300, 35);
+        passwordfield.setBounds(100, 245+40, 300, 35);
         passwordfield.setForeground(Color.BLACK);
         passwordfield.setFont(new Font("", Font.PLAIN, 15));
         cp.add(passwordfield);
@@ -86,6 +108,14 @@ public class SignUpGUI extends JFrame {
                         JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+
+                if (username.length() > 10) {
+                    JOptionPane.showMessageDialog(SignUpGUI.this, 
+                        "Username can't have more than 10 characters long!", 
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 
                 if (password.length() < 6) {
                     JOptionPane.showMessageDialog(SignUpGUI.this, 
@@ -118,8 +148,14 @@ public class SignUpGUI extends JFrame {
 
         // สร้าง label login
         JLabel loginlabel = new JLabel("Have an account? Login Here!");
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 12);
+            loginlabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         loginlabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        loginlabel.setForeground(Color.BLUE);
+        loginlabel.setForeground(Color.YELLOW);
         loginlabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -131,15 +167,15 @@ public class SignUpGUI extends JFrame {
             
             @Override
             public void mouseEntered(MouseEvent e) {
-                loginlabel.setForeground(Color.RED);
+                loginlabel.setForeground(Color.GREEN);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                loginlabel.setForeground(Color.BLUE);
+                loginlabel.setForeground(Color.YELLOW);
             }
         });
-        loginlabel.setBounds(163, 430, 200, 20);
+        loginlabel.setBounds(145, 430, 222, 20);
         cp.add(loginlabel);
 
         

@@ -14,7 +14,6 @@ import lib.User_Section.*;;
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel cards;
-    private String lastGame = "";
     private Clip bg;
     
 
@@ -33,8 +32,8 @@ public class MainFrame extends JFrame {
         panelStart menuPanel = new panelStart();
 
         // หน้าเกม
-        MatchPicture gamePanel = new MatchPicture(currentUser, "easy");       // Kuromi set
-        MatchPicture gamePanel2 = new MatchPicture(currentUser, "hard"); // Pony set
+        MatchPicture gamePanel = new MatchPicture(currentUser, "easy");  
+        MatchPicture gamePanel2 = new MatchPicture(currentUser, "hard"); 
 
         // หน้า GameOver
         panelOver gameOverPanel = new panelOver(UserManager.getNormalRanking(),"easy");
@@ -51,7 +50,7 @@ public class MainFrame extends JFrame {
             
             if (currentUser.getNormalScore() < gamePanel.getCurrentScore()) {
                 UserManager.updateNormalScore(currentUser.getUsername(), gamePanel.getCurrentScore());
-                currentUser.setHardScore(gamePanel.getCurrentScore());
+                currentUser.setNormalScore(gamePanel.getCurrentScore());
             }
             
             gameOverPanel.updateRank(UserManager.getNormalRanking());
@@ -64,7 +63,7 @@ public class MainFrame extends JFrame {
 
         
 
-        // gamePanel2.setOnGameOver(() -> cardLayout.show(cards, "GameOver"));
+
 
         gamePanel2.setOnGameOver(() -> {
             System.out.println(gamePanel2.getCurrentScore());
@@ -73,7 +72,7 @@ public class MainFrame extends JFrame {
             System.out.println(gamePanel2.getCurrentScore());
             if (currentUser.getHardScore() < gamePanel2.getCurrentScore()) {
                 UserManager.updateHardScore(currentUser.getUsername(), gamePanel2.getCurrentScore());
-                currentUser.setNormalScore(gamePanel2.getCurrentScore());
+                currentUser.setHardScore(gamePanel2.getCurrentScore());
             }
             
             gameOverPanel2.updateRank(UserManager.getHardRanking());
@@ -87,14 +86,12 @@ public class MainFrame extends JFrame {
 
         //  set action ของปุ่ม Start ที่อยู่ใน panelStart
         menuPanel.getStartButton().addActionListener(e -> {
-            lastGame = "Game";
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
             playBGSound("bg1", -17);
             
         });
         menuPanel.getStartHorseButton().addActionListener(e -> {
-            lastGame = "Game2";
             cardLayout.show(cards, "Game2");
             gamePanel2.startGame();
             playBGSound("bg1", -17);
@@ -135,8 +132,7 @@ public class MainFrame extends JFrame {
         this.add(cards);
         this.setVisible(true);
 
-        
-
+    
     }
 
     public void playBGSound(String sound, float volume){
