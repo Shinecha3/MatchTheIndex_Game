@@ -1,28 +1,34 @@
 package main;
 
 import java.awt.*;
+import java.net.URL;
+
 import javax.swing.*;
 import lib.User_Section.User;
 import lib.panel.*;
 
 public class MatchPicture extends JPanel {
-    int currentScore = 0;
-    int rows = 4;
-    int columns = 4;
-    int cardwidth = 90;
-    int cardHeight = 90;
+    private int currentScore = 0;
+    private int rows = 4;
+    private int columns = 4;
+    private int cardwidth = 90;
+    private int cardHeight = 90;
 
-    String mode;
-    int boardWidth = columns * cardwidth;
-    int boardHeight = rows * cardHeight;
+    private String mode;
+    private int boardWidth = columns * cardwidth;
+    private int boardHeight = rows * cardHeight;
 
-    JButton restartButton = new JButton();
-    JPanel restartGamePanel = new JPanel();
+    private JButton restartButton = new JButton();
+    private JPanel restartGamePanel = new JPanel();
+    private Image backgroundImage;
+
 
     private panelStats statsPanel;
     private panelBoard boardPanel;
 
     private Runnable onGameOver;
+
+
 
     public void setOnGameOver(Runnable onGameOver) {
         this.onGameOver = onGameOver;
@@ -33,6 +39,18 @@ public class MatchPicture extends JPanel {
         this.mode = mode.toLowerCase();
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(boardWidth, boardHeight));
+
+        try {
+            URL imageURL = getClass().getClassLoader().getResource("img/setBG_Play.jpg");
+        if (imageURL != null) {
+            backgroundImage = new ImageIcon(imageURL).getImage();
+            System.out.println("✅ Loaded background image: " + imageURL);
+        } else {
+            System.out.println("❌ Image not found at: img/setBG.jpg");
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         statsPanel = new panelStats(boardWidth, currentPlayer.getUsername());
         this.add(statsPanel, BorderLayout.NORTH);
@@ -59,4 +77,14 @@ public class MatchPicture extends JPanel {
     }
 
     public int getCurrentScore() { return this.currentScore; }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // วาดภาพพื้นหลังให้เต็มจอ
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
 }

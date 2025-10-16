@@ -17,17 +17,19 @@ public class panelStats extends JPanel {
 
     private Runnable onTimeUp;
     public panelStats(int boardWidth,String playerName) {
-        setPreferredSize(new Dimension(boardWidth, 30));
+        setPreferredSize(new Dimension(boardWidth, 50));
         setLayout(new GridLayout(1, 3)); 
-
+        this.setOpaque(false);
         PlayernameLabel = new JLabel(playerName,SwingConstants.CENTER);
-        PlayernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-
+        PlayernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        PlayernameLabel.setForeground(Color.WHITE);
         scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        scoreLabel.setForeground(Color.WHITE);
 
         timeLabel = new JLabel("Time: " + timeLeft, SwingConstants.CENTER);
-        timeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        timeLabel.setForeground(Color.WHITE);
         
         add(PlayernameLabel);
         add(scoreLabel);

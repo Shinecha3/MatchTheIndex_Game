@@ -54,7 +54,7 @@ public class panelBoard extends JPanel {
         this.cardList = CardSet.getSet(setName);
         setupCards();
         shuffleCards();
-
+        this.setOpaque(false);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
