@@ -40,6 +40,7 @@ public class panelBoard extends JPanel {
     }
 
     public panelBoard(JButton restartButton, panelStats statsPanel,String mode) {
+        
         this.setBackground(Color.GRAY);
         this.mode = mode;
         this.restartButton = restartButton;
@@ -107,7 +108,7 @@ public class panelBoard extends JPanel {
                     }
                 }
             });
-
+            
            board.add(title);
             this.add(title, gbc);
 
@@ -117,6 +118,7 @@ public class panelBoard extends JPanel {
                 gbc.gridy++;
             }
             
+
             if (mode.toLowerCase().equals("easy")) {
                     hideCardTimer = new Timer((750), new ActionListener() {
                     @Override
