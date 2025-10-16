@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.*;
+import java.net.URL;
+
 import javax.swing.*;
 import lib.User_Section.User;
 import lib.panel.*;
@@ -18,21 +20,37 @@ public class MatchPicture extends JPanel {
 
     private JButton restartButton = new JButton();
     private JPanel restartGamePanel = new JPanel();
+    private Image backgroundImage;
+
 
     private panelStats statsPanel;
     private panelBoard boardPanel;
 
     private Runnable onGameOver;
 
+
+
     public void setOnGameOver(Runnable onGameOver) {
         this.onGameOver = onGameOver;
     }
 
-    //  รับ setName เพื่อส่งต่อให้ panelBoard
+    // ✅ รับ setName เพื่อส่งต่อให้ panelBoard
     public MatchPicture(User currentPlayer, String mode) {
         this.mode = mode.toLowerCase();
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(boardWidth, boardHeight));
+
+        try {
+            URL imageURL = getClass().getClassLoader().getResource("img/setBG_Play.jpg");
+        if (imageURL != null) {
+            backgroundImage = new ImageIcon(imageURL).getImage();
+            System.out.println("✅ Loaded background image: " + imageURL);
+        } else {
+            System.out.println("❌ Image not found at: img/setBG.jpg");
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         statsPanel = new panelStats(boardWidth, currentPlayer.getUsername());
         this.add(statsPanel, BorderLayout.NORTH);
@@ -59,4 +77,14 @@ public class MatchPicture extends JPanel {
     }
 
     public int getCurrentScore() { return this.currentScore; }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // วาดภาพพื้นหลังให้เต็มจอ
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
 }

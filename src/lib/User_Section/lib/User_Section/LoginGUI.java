@@ -4,11 +4,13 @@ import main.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class LoginGUI extends JFrame {
     Container cp;
     private JTextField usernamefield;
     private JPasswordField passwordfield;
+    
 
     public LoginGUI() {
         super("Login");
@@ -20,52 +22,70 @@ public class LoginGUI extends JFrame {
     public void Initial() {
         cp = getContentPane();
         cp.setLayout(null);
+
     }
 
     public void setComponent() {
         // สร้างคำ Login
         JLabel loginTT = new JLabel("Login");
-        loginTT.setFont(new Font("", Font.BOLD, 52));
-        Color loginColor = new Color(87 , 58 , 31);
-        loginTT.setForeground(loginColor);
-        loginTT.setBounds(178, 22, 202, 70);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 42);
+            loginTT.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        loginTT.setBounds(178, 50+10, 202, 70);
+        loginTT.setForeground(Color.BLACK);
         cp.add(loginTT);
 
         // สร้าง Label ของ username
         JLabel usernamelabel = new JLabel("Username");
-        Color usernamelabelColor = new Color(123, 42, 59);
-        usernamelabel.setForeground(usernamelabelColor);
-        usernamelabel.setBounds(100, 115, 400, 25);
-        usernamelabel.setFont(new Font("", Font.BOLD, 20));
+        usernamelabel.setBounds(100, 115+40, 400, 25);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            usernamelabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        usernamelabel.setForeground(Color.BLACK);
         cp.add(usernamelabel);
 
         // สร้าง TextField ของ username
         usernamefield = new JTextField();
-        usernamefield.setBounds(100, 150, 300, 35);
-        usernamefield.setForeground(Color.BLACK);
-        usernamefield.setFont(new Font("", Font.PLAIN, 17));
+        usernamefield.setBounds(100, 150+40, 300, 35);
+        usernamefield.setForeground(Color.DARK_GRAY);
+        usernamefield.setFont(new Font("",Font.BOLD,17));
         cp.add(usernamefield);
 
         // สร้าง Label ของ password
         JLabel passwordlabel = new JLabel("Password");
-        Color passwordlabelColor = new Color(123, 42, 59);
-        passwordlabel.setForeground(passwordlabelColor);
-        passwordlabel.setBounds(100, 210, 400, 25);
-        passwordlabel.setFont(new Font("", Font.BOLD, 20));
+        passwordlabel.setBounds(100, 210+40, 400, 25);
+        passwordlabel.setForeground(Color.BLACK);
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 22);
+            passwordlabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         cp.add(passwordlabel);
 
         // สร้าง PasswordField ของ password
         passwordfield = new JPasswordField();
-        passwordfield.setBounds(100, 245, 300, 35);
+        passwordfield.setBounds(100, 245+40, 300, 35);
         passwordfield.setForeground(Color.BLACK);
         passwordfield.setFont(new Font("", Font.PLAIN, 15));
         cp.add(passwordfield);
 
         // สร้างปุ่ม login
         JButton loginbutton = new JButton("Login");
-        loginbutton.setFont(new Font("", Font.BOLD, 18));
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 15);
+            loginbutton.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         loginbutton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        loginbutton.setBackground(new Color(87 , 58 , 31));
+        loginbutton.setBackground(Color.BLACK);
         loginbutton.setForeground(Color.WHITE);
         // เพิ่ม ActionListener สำหรับปุ่ม Login
         loginbutton.addActionListener(new ActionListener() {
@@ -86,10 +106,11 @@ public class LoginGUI extends JFrame {
                 // ตรวจสอบ login ผ่าน UserManager
             User user = UserManager.login(username, password);
             if (user != null) {
-                JOptionPane.showMessageDialog(LoginGUI.this, 
-                    "Login successful!\nWelcome " + user.getUsername() + 
-                    "", "Login Successful",
-                    JOptionPane.INFORMATION_MESSAGE);
+                // JOptionPane.showMessageDialog(LoginGUI.this, 
+                //     "Login successful!\nWelcome " + user.getUsername() + 
+                //     "\nYour score: " + user.getScore(), 
+                //     "Success", 
+                //     JOptionPane.INFORMATION_MESSAGE);
 
                 // ปิดหน้า Login
                 LoginGUI.this.dispose();
@@ -109,8 +130,14 @@ public class LoginGUI extends JFrame {
 
         // สร้าง label signup
         JLabel signuplabel = new JLabel("You are new? Signup Here!");
+        try {
+            Font pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/fonts/Pixelette.ttf")).deriveFont(Font.BOLD, 12);
+            signuplabel.setFont(pixelFont);
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
         signuplabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        signuplabel.setForeground(Color.DARK_GRAY);
+        signuplabel.setForeground(Color.YELLOW);
         signuplabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -122,21 +149,27 @@ public class LoginGUI extends JFrame {
             
             @Override
             public void mouseEntered(MouseEvent e) {
-                signuplabel.setForeground(Color.BLUE);
+                signuplabel.setForeground(Color.GREEN);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                signuplabel.setForeground(Color.DARK_GRAY);
+                signuplabel.setForeground(Color.YELLOW);
             }
         });
-        signuplabel.setBounds(170, 430, 200, 20);
+        signuplabel.setBounds(145, 430, 222, 20);
         cp.add(signuplabel);
+
+        ImageIcon bgIcon = new ImageIcon("src/img/setLogin.jpg");
+        Image scaledImage = bgIcon.getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH);
+        JLabel background = new JLabel(new ImageIcon(scaledImage));
+        background.setBounds(0, 0, 500, 500);
+        cp.add(background);
+        cp.setComponentZOrder(background, cp.getComponentCount() - 1); // ล่างสุดจริง
     }
 
     public void Finally() {
         setSize(500, 500);
-        cp.setBackground(new Color(250,239, 200));
         setResizable(false);
         setVisible(true);
         setLocationRelativeTo(null);

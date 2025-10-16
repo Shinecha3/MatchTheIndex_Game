@@ -6,5 +6,4 @@ public interface Card {
     String getName();
     ImageIcon getImage();
     int getScore();
-    String getDescription();
 }

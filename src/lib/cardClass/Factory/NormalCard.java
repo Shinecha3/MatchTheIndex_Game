@@ -21,6 +21,5 @@ public class NormalCard implements Card {
     @Override
     public int getScore() { return score; }
 
-    @Override
-    public String getDescription() { return name; }
+
 }

@@ -13,41 +13,40 @@ public class panelBoard extends JPanel {
 
     private String mode;
     private String setName;
-    private String[] cardList;
+    String[] cardList;
 
-    private int rows = 4;
-    private int columns = 4;
-    private int cardwidth = 90;
-    private int cardHeight = 90;
+    int rows = 4;
+    int columns = 4;
+    int cardwidth = 90;
+    int cardHeight = 90;
     private JButton restartButton;
     private panelStats statsPanel;
     public ArrayList<Card> cardSet;
-    private Timer Delay;
+    Timer Delay;
 
-    private int scoreCount = 0;
-    private ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
-    private Timer hideCardTimer;
-    private int hideCardDely;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
-    private boolean gameReady = false;
-    private JButton card1Selected;
-    private JButton card2Selected;
-    private ImageIcon cardBackImageIcon;
+    int scoreCount = 0;
+    ArrayList<JButton> board = new ArrayList<>(); //  new ArrayList
+    Timer hideCardTimer;
+    int hideCardDely;    // 3วิ ก่อนเริ่ม ซ่อนการ์ด
+    boolean gameReady = false;
+    JButton card1Selected;
+    JButton card2Selected;
+    ImageIcon cardBackImageIcon;
 
-    private Runnable boardRun;
+    Runnable boardRun;
 
     public void boardRun(Runnable boardRun) {
         this.boardRun = boardRun;
     }
 
     public panelBoard(JButton restartButton, panelStats statsPanel,String mode) {
-        
         this.setBackground(Color.GRAY);
         this.mode = mode;
         this.restartButton = restartButton;
         this.statsPanel = statsPanel;
-        this.setName = CardSet.getRandomCardSet();
+        this.setName = CardSet.getRandomCardSet();  // สุ่มเช็ตการ์ด
         if (mode.toLowerCase().equals("easy")) {
-            hideCardDely = (1000) * 2;
+            hideCardDely = (1000) * 2; // ดีเล ก่อนปิดไพ่
         }else if (mode.toLowerCase().equals("hard")){
             hideCardDely = 0;
         }
@@ -55,7 +54,7 @@ public class panelBoard extends JPanel {
         this.cardList = CardSet.getSet(setName);
         setupCards();
         shuffleCards();
-
+        this.setOpaque(false);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -63,6 +62,7 @@ public class panelBoard extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5); // ช่องว่างรอบๆ JButton
         gbc.fill = GridBagConstraints.BOTH; // ให้ JButton ขยายเต็มพื้นที่
 
+        // ไว้สร้างการ์ด ปุ่มกด ระบบจับคู้
         for (int i = 0; i < cardSet.size(); i++) {
             JButton title = new JButton();
             title.setPreferredSize(new Dimension(cardwidth, cardHeight));
@@ -76,7 +76,7 @@ public class panelBoard extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!gameReady) return;
-
+                    
                     JButton tile = (JButton) e.getSource();
                     if (tile.getIcon() == cardBackImageIcon) {
                         if (card1Selected == null) {
@@ -98,7 +98,7 @@ public class panelBoard extends JPanel {
                                 statsPanel.updateScore(scoreCount);
                                 card1Selected = null;
                                 card2Selected = null;
-                                statsPanel.addTime(5);
+                                statsPanel.addTime(3);
                                 if (isBoardCleared()) {
                                     reCard(CardSet.getRandomCardSet());
                                     
@@ -108,7 +108,7 @@ public class panelBoard extends JPanel {
                     }
                 }
             });
-            
+
            board.add(title);
             this.add(title, gbc);
 
@@ -118,7 +118,6 @@ public class panelBoard extends JPanel {
                 gbc.gridy++;
             }
             
-
             if (mode.toLowerCase().equals("easy")) {
                     hideCardTimer = new Timer((750), new ActionListener() {
                     @Override
