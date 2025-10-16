@@ -6,18 +6,18 @@ import lib.User_Section.User;
 import lib.panel.*;
 
 public class MatchPicture extends JPanel {
-    int currentScore = 0;
-    int rows = 4;
-    int columns = 4;
-    int cardwidth = 90;
-    int cardHeight = 90;
+    private int currentScore = 0;
+    private int rows = 4;
+    private int columns = 4;
+    private int cardwidth = 90;
+    private int cardHeight = 90;
 
-    String mode;
-    int boardWidth = columns * cardwidth;
-    int boardHeight = rows * cardHeight;
+    private String mode;
+    private int boardWidth = columns * cardwidth;
+    private int boardHeight = rows * cardHeight;
 
-    JButton restartButton = new JButton();
-    JPanel restartGamePanel = new JPanel();
+    private JButton restartButton = new JButton();
+    private JPanel restartGamePanel = new JPanel();
 
     private panelStats statsPanel;
     private panelBoard boardPanel;
