@@ -1,5 +1,11 @@
 package main;
 import java.awt.*;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 
 import lib.panel.*;
@@ -9,6 +15,7 @@ public class MainFrame extends JFrame {
     private CardLayout cardLayout;
     private JPanel cards;
     private String lastGame = "";
+    private Clip bg;
     
 
     public MainFrame(User inputUser) {
@@ -50,6 +57,8 @@ public class MainFrame extends JFrame {
             gameOverPanel.updateRank(UserManager.getNormalRanking());
             gameOverPanel.setCurrentScore(gamePanel.getCurrentScore());
             cardLayout.show(cards, "GameOver");
+            this.bg.stop();
+
             
         });
 
@@ -70,6 +79,7 @@ public class MainFrame extends JFrame {
             gameOverPanel2.updateRank(UserManager.getHardRanking());
             gameOverPanel2.setCurrentScore(gamePanel2.getCurrentScore());
             cardLayout.show(cards, "GameOver2");
+            this.bg.stop();
             
         });
 
@@ -80,12 +90,14 @@ public class MainFrame extends JFrame {
             lastGame = "Game";
             cardLayout.show(cards, "Game");
             gamePanel.startGame();
+            playBGSound("bg1", -17);
             
         });
         menuPanel.getStartHorseButton().addActionListener(e -> {
             lastGame = "Game2";
             cardLayout.show(cards, "Game2");
             gamePanel2.startGame();
+            playBGSound("bg1", -17);
         });
 
         //  set action ของปุ่ม Back to Menu ที่อยู่ใน panelGameOver
@@ -99,25 +111,18 @@ public class MainFrame extends JFrame {
 
         //  set action ของปุ่ม Restart Game ที่อยู่ใน panelGameOver
         gameOverPanel.getRestartButton().addActionListener(e -> {
-            if (lastGame.equals("Game")) {
-                cardLayout.show(cards, "Game");
-                gamePanel.startGame();
-            } else if (lastGame.equals("Game2")) {
-                cardLayout.show(cards, "Game2");
-                gamePanel2.startGame();
-            }
-            gamePanel.startGame(); // เริ่มเกมใหม่ทันที
+            cardLayout.show(cards, "Game");
+            gamePanel.startGame();
+            playBGSound("bg1", -17);
+
+        
         });
 
         gameOverPanel2.getRestartButton().addActionListener(e -> {
-            if (lastGame.equals("Game")) {
-                cardLayout.show(cards, "Game");
-                gamePanel.startGame();
-            } else if (lastGame.equals("Game2")) {
-                cardLayout.show(cards, "Game2");
-                gamePanel2.startGame();
-            }
-            gamePanel.startGame(); // เริ่มเกมใหม่ทันที
+            cardLayout.show(cards, "Game2");
+            gamePanel2.startGame();
+            playBGSound("bg2", -17);
+
         });
 
         // เพิ่มทุกหน้าเข้าไปใน card
@@ -129,7 +134,35 @@ public class MainFrame extends JFrame {
 
         this.add(cards);
         this.setVisible(true);
+
+        
+
     }
 
+    public void playBGSound(String sound, float volume){
+        try {
+            // โหลดไฟล์เสียง
+            File file = new File("src\\sound\\"+ sound.toLowerCase() +".wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 
+            // เปิด bg
+            bg = AudioSystem.getClip();
+            bg.open(audioStream);
+
+            // ปรับเสียง (dB)
+            FloatControl gainControl = (FloatControl) bg.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volume);  
+
+            bg.loop(Clip.LOOP_CONTINUOUSLY);
+            bg.start();
+
+
+            // เล่นเสียง
+            bg.start();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
